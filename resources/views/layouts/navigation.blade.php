@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('menu')" :active="request()->routeIs('/')">
+                    <x-nav-link :href="route('menu')" :active="request()->routeIs('menu')">
                         {{ __('Menu') }}
                     </x-nav-link>
                 </div>
@@ -31,7 +31,7 @@
                 
                 @if (auth()->user()->hasRole('seller') | auth()->user()->hasRole('admin'))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('/')">
+                    <x-nav-link :href="route('order')" :active="request()->routeIs('order')">
                         {{ __('Order') }}
                     </x-nav-link>
                 </div>

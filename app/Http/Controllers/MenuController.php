@@ -12,7 +12,9 @@ class MenuController extends Controller
          */
     public function index()
     {
-        
+        $menu = Menu::orderBy('created_at', 'DESC')->get();
+
+        return view('menu.index', compact('menu'));
     }
 
     /**
@@ -20,7 +22,7 @@ class MenuController extends Controller
          */
     public function create()
     {
-        
+        return view('menu.create');
     }
 
     /**
@@ -28,7 +30,9 @@ class MenuController extends Controller
          */
     public function store(Request $request)
     {
+        Menu::create($request->all());
         
+        return redirect()->route('menu')->with('success', 'Menu added successfully');
     }
 
     /**
@@ -36,7 +40,9 @@ class MenuController extends Controller
          */
     public function show(string $id)
     {
-        
+        $menu = Menu::findOrFail($id);
+
+        return view('menu.show', compact('menu'));
     }
 
     /**
@@ -44,7 +50,9 @@ class MenuController extends Controller
          */
     public function edit(string $id)
     {
-        
+        $menu = Menu::findOrFail($id);
+
+        return view('menu.edit', compact('menu'));
     }
 
     /**
@@ -52,7 +60,11 @@ class MenuController extends Controller
          */
     public function update(Request $request, string $id)
     {
+        $menu = Menu::findOrFail($id);
+
+        $menu->update($request->all());
         
+        return redirect()->route('menu')->with('success', 'Menu updated successfully');
     }
 
     /**
@@ -60,6 +72,10 @@ class MenuController extends Controller
          */
     public function destroy(string $id)
     {
-        
+        $menu = Menu::findOrFail($id);
+
+        $menu->delete();
+
+        return redirect()->route('menu')->with('success', 'Menu deleted successfully');
     }
 }
