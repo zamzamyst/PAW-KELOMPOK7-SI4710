@@ -3,6 +3,7 @@
 use App\Http\Controllers\OrderController; 
 use App\Http\Controllers\MenuController; 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,7 +56,18 @@ Route::middleware('auth')->group(function () {
 
 
     /*  Routes untuk Fitur Users  */
-
+    Route::controller(UserController::class)
+    ->prefix('user')
+    ->middleware(['auth', 'verified'])
+    ->group(function () {
+        Route::get('', 'index')->name('user');
+        Route::get('/create/{menu_code}', 'create')->name('user.create');
+        Route::post('/store', 'store')->name('user.store');
+        Route::get('/show/{id}', 'show')->name('user.show');
+        Route::get('/edit/{id}', 'edit')->name('user.edit');
+        Route::put('/edit/{id}', 'update')->name('user.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('user.destroy');
+    });
 
 });
 
