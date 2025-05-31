@@ -59,5 +59,9 @@ Route::middleware('auth')->group(function () {
 
 });
 
+// Untuk mendeteksi routes/api.php
+if (file_exists(base_path('routes/api.php'))) {
+    require base_path('routes/api.php');
+}
 
 require __DIR__.'/auth.php';
