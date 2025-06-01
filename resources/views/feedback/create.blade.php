@@ -25,7 +25,7 @@
 
                     <div class="mb-4">
                         <label for="rating" class="block text-gray-700 font-semibold mb-2">Rating (1-5)</label>
-                        <select name="rating" id="rating" required class="w-full border border-gray-300 rounded px-3 py-2">
+                        <select name="rating" id="rating" required class="w-full bg-gray-100 border border-gray-300 rounded px-3 py-2">
                             <option value="">-- Select Rating --</option>
                             @for ($i = 1; $i <= 5; $i++)
                                 <option value="{{ $i }}" {{ old('rating') == $i ? 'selected' : '' }}>
@@ -37,7 +37,7 @@
 
                     <div class="mb-4">
                         <label for="comment" class="block text-gray-700 font-semibold mb-2">Comment (optional)</label>
-                        <textarea name="comment" id="comment" rows="4" class="w-full border border-gray-300 rounded px-3 py-2">{{ old('comment') }}</textarea>
+                        <textarea name="comment" id="comment" rows="4" class="w-full bg-gray-100 border border-gray-300 rounded px-3 py-2">{{ old('comment') }}</textarea>
                     </div>
 
                     <button type="submit" class="bg-[#881a14] text-white px-4 py-2 rounded hover:bg-[#6f1611]">

@@ -28,7 +28,7 @@
 
                     <div>
                         <label for="rating" class="block text-gray-700 text-sm font-bold mb-2">Rating (1-5)</label>
-                        <select name="rating" id="rating" required class="form-input w-full bg-white border border-gray-300 rounded px-3 py-2">
+                        <select name="rating" id="rating" required class="form-input w-full bg-gray-100 border border-gray-300 rounded px-3 py-2">
                             @for ($i = 1; $i <= 5; $i++)
                                 <option value="{{ $i }}" {{ old('rating', $feedback->rating) == $i ? 'selected' : '' }}>
                                     {{ $i }}
@@ -42,7 +42,7 @@
 
                     <div>
                         <label for="comment" class="block text-gray-700 text-sm font-bold mb-2">Comment (optional)</label>
-                        <textarea name="comment" id="comment" rows="4" class="form-input w-full bg-white border border-gray-300 rounded px-3 py-2">{{ old('comment', $feedback->comment) }}</textarea>
+                        <textarea name="comment" id="comment" rows="4" class="form-input w-full bg-gray-100 border border-gray-300 rounded px-3 py-2">{{ old('comment', $feedback->comment) }}</textarea>
                         @error('comment')
                             <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
                         @enderror
