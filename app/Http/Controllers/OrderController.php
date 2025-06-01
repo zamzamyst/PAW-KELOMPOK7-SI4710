@@ -11,7 +11,8 @@ class OrderController extends Controller {
     // Fungsi untuk Read (All) Data Order
     public function index()
     {
-        
+        $order = Order::orderBy('created_at', 'DESC')->get();
+        return view('order.index', compact('order'));
     }
 
     // Fungsi untuk Create Order (By $menu_code)
@@ -46,7 +47,8 @@ class OrderController extends Controller {
     // Fungsi untuk Read Data Order (By $id)
     public function show(string $id)
     {
-        
+        $order = Order::findOrFail($id);
+        return view('order.show', compact('order'));
     }
 
     // Fungsi untuk Edit Data Order (By $id)
