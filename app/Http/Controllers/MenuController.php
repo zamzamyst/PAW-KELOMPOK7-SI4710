@@ -12,7 +12,9 @@ class MenuController extends Controller
          */
     public function index()
     {
-        
+        $menu = Menu::orderBy('created_at', 'DESC')->get();
+
+        return view('menu.index', compact('menu'));
     }
 
     /**
