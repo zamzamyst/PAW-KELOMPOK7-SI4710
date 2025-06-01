@@ -4,61 +4,61 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('List Feedback') }}
             </h2>
-            <a href="{{ route('feedback.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                + Tambah Feedback
-            </a>
         </div>
     </x-slot>
 
-    <div class="py-8">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            @if (session('success'))
-                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded">
-                    {{ session('success') }}
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (Session::has('success'))
+                <div class="mb-4 font-medium text-sm text-green-600">
+                    {{ Session::get('success') }}
                 </div>
             @endif
 
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                <table class="min-w-full table-auto">
-                    <thead class="bg-gray-100">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <table class="min-w-full divide-y divide-gray-200 border border-gray-300">
+                    <thead class="bg-[#881a14] text-white text-center font-bold">
                         <tr>
-                            <th class="px-4 py-2 text-left">User</th>
-                            <th class="px-4 py-2 text-left">Rating</th>
-                            <th class="px-4 py-2 text-left">Komentar</th>
-                            <th class="px-4 py-2 text-left">Tanggal</th>
-                            <th class="px-4 py-2 text-left">Aksi</th>
+                            <th class="px-4 py-2">No.</th>
+                            <th class="px-4 py-2">Rating</th>
+                            <th class="px-4 py-2">Comment</th>
+                            <th class="px-4 py-2">Created At</th>
+                            <th class="px-4 py-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($feedbacks as $feedback)
-                            <tr class="border-b">
-                                <td class="px-4 py-2">{{ $feedback->user->name }}</td>
-                                <td class="px-4 py-2">{{ $feedback->rating }}</td>
-                                <td class="px-4 py-2">{{ Str::limit($feedback->comment, 50) }}</td>
-                                <td class="px-4 py-2">{{ $feedback->created_at->format('d M Y') }}</td>
-                                <td class="px-4 py-2 flex gap-2">
-                                    <a href="{{ route('feedback.show', $feedback->id) }}" class="text-blue-500 hover:underline">Lihat</a>
-                                    
-                                    @if ($feedback->user_id === auth()->id())
-                                        <a href="{{ route('feedback.edit', $feedback->id) }}" class="text-yellow-500 hover:underline">Edit</a>
-
-                                        <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+                        @forelse ($feedbacks as $fb)
+                            <tr class="border-t text-center align-middle">
+                                <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                                <td class="px-4 py-2">{{ $fb->rating }}</td>
+                                <td class="px-4 py-2">{{ Str::limit($fb->comment, 50, '...') }}</td>
+                                <td class="px-4 py-2">{{ $fb->created_at->format('d M Y') }}</td>
+                                <td class="px-4 py-2">
+                                    <div class="flex justify-center gap-1 flex-wrap">
+                                        <a href="{{ route('feedback.show', $fb->id) }}"
+                                            class="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-800 text-sm">Detail</a>
+                                        <a href="{{ route('feedback.edit', $fb->id) }}"
+                                            class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 text-sm">Edit</a>
+                                        <form action="{{ route('feedback.destroy', $fb->id) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this feedback?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:underline">Hapus</button>
+                                            <button type="submit"
+                                                class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-sm">
+                                                Delete
+                                            </button>
                                         </form>
-                                    @endif
+                                    </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center px-4 py-4">Belum ada feedback.</td>
+                                <td colspan="5" class="text-center py-4">No feedback found</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 </x-app-layout>
