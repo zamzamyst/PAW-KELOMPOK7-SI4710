@@ -5,44 +5,24 @@
         </h2>
     </x-slot>
 
-    <div class="py-8">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-md rounded-lg p-6">
-
-                <div class="mb-4">
-                    <h3 class="text-lg font-semibold text-gray-700">Nama Pengguna</h3>
-                    <p class="text-gray-900">{{ $feedback->user->name }}</p>
+    <div class="py-12">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white shadow-md rounded-lg p-8">
+                <h1 class="text-2xl font-bold mb-4">Feedback Detail #{{ $feedback->id }}</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-1">Rating</label>
+                        <input type="text" class="form-input w-full bg-gray-100" value="{{ $feedback->rating }}" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-1">Created At</label>
+                        <input type="text" class="form-input w-full bg-gray-100" value="{{ $feedback->created_at->format('d M Y H:i') }}" readonly>
+                    </div>
                 </div>
-
-                <div class="mb-4">
-                    <h3 class="text-lg font-semibold text-gray-700">Rating</h3>
-                    <p class="text-gray-900">{{ $feedback->rating }} / 5</p>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Comment</label>
+                    <textarea class="form-input w-full bg-gray-100" rows="5" readonly>{{ $feedback->comment }}</textarea>
                 </div>
-
-                <div class="mb-4">
-                    <h3 class="text-lg font-semibold text-gray-700">Komentar</h3>
-                    <p class="text-gray-900 whitespace-pre-line">{{ $feedback->comment }}</p>
-                </div>
-
-                <div class="mb-4">
-                    <h3 class="text-lg font-semibold text-gray-700">Dibuat Pada</h3>
-                    <p class="text-gray-900">{{ $feedback->created_at->format('d M Y, H:i') }}</p>
-                </div>
-
-                <div class="flex items-center gap-4 mt-6">
-                    <a href="{{ route('feedback.index') }}" class="text-blue-600 hover:underline">← Kembali ke daftar</a>
-
-                    @if ($feedback->user_id === auth()->id())
-                        <a href="{{ route('feedback.edit', $feedback->id) }}" class="text-yellow-500 hover:underline">Edit</a>
-
-                        <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus feedback ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:underline">Hapus</button>
-                        </form>
-                    @endif
-                </div>
-
             </div>
         </div>
     </div>
