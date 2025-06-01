@@ -44,7 +44,18 @@ Route::middleware('auth')->group(function () {
 
 
     /*  Routes untuk Fitur Feedback  */
-
+    Route::controller(FeedbackController::class)
+    ->prefix('feedback')
+    ->middleware(['auth', 'verified'])
+    ->group(function () {
+        Route::get('', 'index')->name('feedback.index');
+        Route::get('create', 'create')->name('feedback.create');
+        Route::post('store', 'store')->name('feedback.store');
+        Route::get('show/{id}', 'show')->name('feedback.show');
+        Route::get('edit/{id}', 'edit')->name('feedback.edit');
+        Route::put('edit/{id}', 'update')->name('feedback.update');
+        Route::delete('destroy/{id}', 'destroy')->name('feedback.destroy');
+    });
 
     /*  Routes untuk Fitur Users  */
     
