@@ -1,15 +1,13 @@
 <?php
 
 use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\MenuController;
 use Illuminate\Support\Facades\Route;
 
 /*  Routes API untuk Fitur Menu  */
 Route::middleware('api')
     ->prefix('api')
     ->group(function () {
-        Route::get('/menu', [MenuController::class, 'index']);
-        Route::get('/menu/{id}', [MenuController::class,'show']);
+        //
     });
 
 
