@@ -15,7 +15,8 @@ Route::middleware('api')
 Route::middleware('api')
     ->prefix('api')
     ->group(function () {
-        //
+        Route::get('/order', [OrderController::class, 'index']);
+        Route::get('/order/{id}', [OrderController::class, 'show']);
     });
 
 
