@@ -3,6 +3,7 @@
 use App\Http\Controllers\OrderController; 
 use App\Http\Controllers\MenuController; 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,6 +33,20 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('menu.edit');
         Route::put('edit/{id}', 'update')->name('menu.update');
         Route::delete('destroy/{id}', 'destroy')->name('menu.destroy');
+    });
+
+    /* FITUR FEEDBACK */
+    Route::controller(FeedbackController::class)
+    ->prefix('feedback')
+    ->middleware(['auth', 'verified'])
+    ->group(function () {
+        Route::get('', 'index')->name('feedback.index');
+        Route::get('create', 'create')->name('feedback.create');
+        Route::post('store', 'store')->name('feedback.store');
+        Route::get('show/{id}', 'show')->name('feedback.show');
+        Route::get('edit/{id}', 'edit')->name('feedback.edit');
+        Route::put('edit/{id}', 'update')->name('feedback.update');
+        Route::delete('destroy/{id}', 'destroy')->name('feedback.destroy');
     });
 
 });
