@@ -70,6 +70,9 @@ class OrderController extends Controller {
     // Fungsi untuk Delete Data Order (By $id)
     public function destroy(string $id)
     {
-        
+        $order = Order::findOrFail($id);
+        $order->delete();
+
+        return redirect()->route('order')->with('success', 'Order berhasil dihapus!');
     }
 }
