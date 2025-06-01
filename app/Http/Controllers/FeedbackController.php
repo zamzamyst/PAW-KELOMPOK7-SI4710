@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Feedback;
 
 class FeedbackController extends Controller
 {
@@ -39,7 +40,7 @@ class FeedbackController extends Controller
             'comment' => $request->input('comment'),
         ]);
 
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil disimpan :)');
+        return redirect()->route('feedback.index')->with('success', 'Feedback saved successfully :)');
     }
 
     /**
@@ -59,7 +60,7 @@ class FeedbackController extends Controller
         $feedback = Feedback::findOrFail($id);
 
         if ($feedback->user_id !== auth()->id()) {
-            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki feedback ini :(');
+            return redirect()->route('feedback.index')->with('error', 'You do not own this feedback :(');
         }
 
         return view('feedback.edit', compact('feedback'));
@@ -86,7 +87,7 @@ class FeedbackController extends Controller
             'comment' => $request->input('comment'),
         ]);
 
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil diperbarui :)');
+        return redirect()->route('feedback.index')->with('success', 'Feedback updated successfully :)');
     }
 
     /**
@@ -102,6 +103,6 @@ class FeedbackController extends Controller
 
         $feedback->delete();
 
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dihapus :)');
+        return redirect()->route('feedback.index')->with('success', 'Feedback deleted successfully :)');
     }
 }
