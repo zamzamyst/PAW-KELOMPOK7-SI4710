@@ -1,4 +1,4 @@
-x-app-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Edit Menu') }}
@@ -18,16 +18,16 @@ x-app-layout>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
-                            <input type="text" name="name" class="form-input w-full" placeholder="Name"
-                                value="{{ old('name', $menu->name) }}" >
+                            <input type="text" name="name" class="w-full border rounded px-3 py-2" placeholder="Name"
+                                value="{{ old('name', $menu->name) }}">
                             @error('name')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
                         </div>
                         <div>
                             <label class="block text-gray-700 text-sm font-bold mb-2">Menu Code</label>
-                            <input type="text" name="menu_code" class="form-input w-full" placeholder="Menu Code"
-                                value="{{ old('menu_code', $menu->menu_code) }}" >
+                            <input type="text" name="menu_code" class="w-full border rounded px-3 py-2" placeholder="Menu Code"
+                                value="{{ old('menu_code', $menu->menu_code) }}">
                             @error('menu_code')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
@@ -37,7 +37,7 @@ x-app-layout>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-gray-700 text-sm font-bold mb-2">Price</label>
-                            <input type="text" name="price" class="form-input w-full" placeholder="Price"
+                            <input type="text" name="price" class="w-full border rounded px-3 py-2" placeholder="Price"
                                 value="{{ old('price', $menu->price) }}">
                             @error('price')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -45,7 +45,7 @@ x-app-layout>
                         </div>
                         <div>
                             <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
-                            <textarea name="description" class="form-input w-full" placeholder="Description"
+                            <textarea name="description" class="w-full border rounded px-3 py-2" placeholder="Description"
                                 rows="3">{{ old('description', $menu->description) }}</textarea>
                             @error('description')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
