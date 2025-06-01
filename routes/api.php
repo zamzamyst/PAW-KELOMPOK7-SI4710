@@ -37,7 +37,9 @@ Route::middleware('api')
 Route::middleware('api')
     ->prefix('api')
     ->group(function () {
-        //
+        Route::get('/user', [UserController::class, 'index']);
+        Route::get('/user/{id}', [UserController::class, 'show']);
     });
+
 
 
