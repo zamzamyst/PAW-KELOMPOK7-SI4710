@@ -13,18 +13,20 @@ class FeedbackController extends Controller
     {
         $feedbacks = Feedback::with('user')->latest()->get();
         return view('feedback.index', compact('feedbacks'));
+        //
     }
 
     /**
-     * Show the form for creating a new resource.
+        * Show the form for creating a new resource.
      */
     public function create()
     {
         return view('feedback.create');
+        //
     }
 
     /**
-     * Store a newly created resource in storage.
+        * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
@@ -40,19 +42,21 @@ class FeedbackController extends Controller
         ]);
 
         return redirect()->route(feedback.index)->with('success', 'Feedback berhasil disubmit :D.');
+        //
     }
 
     /**
-     * Display the specified resource.
+        * Display the specified resource.
      */
     public function show(string $id)
     {
         $feedback = Feedback::with('user')->findOrFail($id);
         return view('feedback.show', compact('feedback'));
+        //
     }
 
     /**
-     * Show the form for editing the specified resource.
+        * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
@@ -63,10 +67,11 @@ class FeedbackController extends Controller
         }
 
         return view('feedback.edit', compact('feedback'));
+        //
     }
 
     /**
-     * Update the specified resource in storage.
+        * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -86,10 +91,11 @@ class FeedbackController extends Controller
         ]);
 
         return redirect()->route('feedback.index')->with('success', 'Feedback berhasil diperbarui :D.');
+        //
     }
 
     /**
-     * Remove the specified resource from storage.
+        * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
@@ -101,5 +107,6 @@ class FeedbackController extends Controller
         $feedback->delete();
 
         return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dihapus :D.');
+        //
     }
 }
