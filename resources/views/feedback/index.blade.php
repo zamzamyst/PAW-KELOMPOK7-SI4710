@@ -37,10 +37,18 @@
                     <tbody>
                         @forelse ($feedbacks as $fb)
                             <tr class="border-t text-center align-middle">
-                                <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                <td class="px-4 py-2">{{ $fb->rating }}</td>
-                                <td class="px-4 py-2">{{ Str::limit($fb->comment, 50, '...') }}</td>
-                                <td class="px-4 py-2">{{ $fb->created_at->format('d M Y') }}</td>
+                                <td class="px-4 py-2">
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{ $fb->rating }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{ Str::limit($fb->comment, 50, '...') }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    {{ $fb->created_at->format('d M Y') }}
+                                </td>
                                 <td class="px-4 py-2">
                                     <div class="flex justify-center gap-2 flex-wrap">
                                         <a href="{{ route('feedback.show', $fb->id) }}" method="GET"
@@ -64,7 +72,9 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-4">Tidak ada Feedback</td>
+                                <td colspan="5" class="text-center py-4">
+                                    Tidak ada Feedback
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
