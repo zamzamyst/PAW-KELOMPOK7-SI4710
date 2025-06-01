@@ -5,13 +5,14 @@
         </h2>
     </x-slot>
 
-    <div class="py-8">
+    <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+            <div class="bg-white shadow-sm sm:rounded-lg p-6">
 
+                {{-- Show validation errors --}}
                 @if ($errors->any())
-                    <div class="mb-4 text-red-600">
-                        <ul class="list-disc pl-5">
+                    <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                        <ul class="list-disc list-inside">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
@@ -19,35 +20,30 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('feedback.store') }}">
+                <form action="{{ route('feedback.store') }}" method="POST">
                     @csrf
 
-                    <!-- Rating -->
                     <div class="mb-4">
-                        <label for="rating" class="block font-medium text-sm text-gray-700">Rating (1 - 5)</label>
-                        <input type="number" name="rating" id="rating" min="1" max="5"
-                            class="form-input rounded-md shadow-sm mt-1 block w-full"
-                            value="{{ old('rating') }}" required>
+                        <label for="rating" class="block text-gray-700 font-semibold mb-2">Rating (1-5)</label>
+                        <select name="rating" id="rating" required class="w-full border border-gray-300 rounded px-3 py-2">
+                            <option value="">-- Select Rating --</option>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <option value="{{ $i }}" {{ old('rating') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                            @endfor
+                        </select>
                     </div>
 
-                    <!-- Comment -->
                     <div class="mb-4">
-                        <label for="comment" class="block font-medium text-sm text-gray-700">Komentar</label>
-                        <textarea name="comment" id="comment" rows="4"
-                            class="form-input rounded-md shadow-sm mt-1 block w-full"
-                            placeholder="Tambahkan Komentar...">{{ old('comment') }}</textarea>
+                        <label for="comment" class="block text-gray-700 font-semibold mb-2">Comment (optional)</label>
+                        <textarea name="comment" id="comment" rows="4" class="w-full border border-gray-300 rounded px-3 py-2">{{ old('comment') }}</textarea>
                     </div>
 
-                    <!-- Submit -->
-                    <div class="flex items-center justify-end mt-4">
-                        <x-primary-button>
-                            {{ __('Kirim Feedback') }}
-                        </x-primary-button>
-                    </div>
+                    <button type="submit" class="bg-[#881a14] text-white px-4 py-2 rounded hover:bg-[#6f1611]">
+                        Submit Feedback
+                    </button>
                 </form>
 
             </div>
         </div>
     </div>
 </x-app-layout>
-
