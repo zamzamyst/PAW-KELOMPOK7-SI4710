@@ -11,7 +11,8 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        //
+        $feedbacks = Feedback::with('user')->latest()->get();
+        return view('feedback.index', compact('feedbacks'));
     }
 
     /**
@@ -19,7 +20,7 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        //
+        return view('feedback.create');
     }
 
     /**
@@ -27,7 +28,18 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string',
+        ]);
+
+        Feedback::create([
+            'user_id' => auth()->id(),
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->route(feedback.index)->with('success', 'Feedback berhasil disubmit :D.');
     }
 
     /**
@@ -35,7 +47,8 @@ class FeedbackController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $feedback = Feedback::with('user')->findOrFail($id);
+        return view('feedback.show', compact('feedback'));
     }
 
     /**
@@ -43,7 +56,13 @@ class FeedbackController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $feedback = Feedback::findOrFail($id);
+
+        if ($feedback->user_id !== auth()->id()) {
+            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki akses ke feedback tersebut :(.');
+        }
+
+        return view('feedback.edit', compact('feedback'));
     }
 
     /**
@@ -51,7 +70,22 @@ class FeedbackController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $fedback = Feedback::findOrFail($id);
+        if ($fedback->user_id !== auth()->id()) {
+            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki akses ke feedback tersebut :(.');
+        }
+
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string',
+        ]);
+
+        $fedback->update([
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil diperbarui :D.');
     }
 
     /**
@@ -59,6 +93,13 @@ class FeedbackController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $feedback = Feedback::findOrFail($id);
+        if ($feedback->user_id !== auth()->id()) {
+            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki akses ke feedback tersebut :(.');
+        }
+
+        $feedback->delete();
+
+        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dihapus :D.');
     }
 }
