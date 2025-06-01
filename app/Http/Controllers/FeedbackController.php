@@ -40,7 +40,7 @@ class FeedbackController extends Controller
             'comment' => $request->input('comment'),
         ]);
 
-        return redirect()->route('feedback.index')->with('success', 'Feedback saved successfully :)');
+        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil disimpan :)');
     }
 
     /**
@@ -60,7 +60,7 @@ class FeedbackController extends Controller
         $feedback = Feedback::findOrFail($id);
 
         if ($feedback->user_id !== auth()->id()) {
-            return redirect()->route('feedback.index')->with('error', 'You do not own this feedback :(');
+            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki Feedback ini :(');
         }
 
         return view('feedback.edit', compact('feedback'));
@@ -74,7 +74,7 @@ class FeedbackController extends Controller
         $feedback = Feedback::findOrFail($id);
 
         if ($feedback->user_id !== auth()->id()) {
-            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki feedback ini :(');
+            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki Feedback ini :(');
         }
 
         $request->validate([
@@ -87,7 +87,7 @@ class FeedbackController extends Controller
             'comment' => $request->input('comment'),
         ]);
 
-        return redirect()->route('feedback.index')->with('success', 'Feedback updated successfully :)');
+        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil diperbarui :)');
     }
 
     /**
@@ -98,11 +98,11 @@ class FeedbackController extends Controller
         $feedback = Feedback::findOrFail($id);
 
         if ($feedback->user_id !== auth()->id()) {
-            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki feedback ini :(');
+            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki Feedback ini :(');
         }
 
         $feedback->delete();
 
-        return redirect()->route('feedback.index')->with('success', 'Feedback deleted successfully :)');
+        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dihapus :)');
     }
 }
