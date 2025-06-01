@@ -54,13 +54,17 @@ class OrderController extends Controller {
     // Fungsi untuk Edit Data Order (By $id)
     public function edit(string $id)
     {
-        
+        $order = Order::findOrFail($id);
+        return view('order.edit', compact('order'));
     }
 
     // Fungsi untuk Simpan Perubahasn Data Order
     public function update(Request $request, string $id)
     {
+        $order = Order::findOrFail($id);
+        $order->update($request->all());
         
+        return redirect()->route('order')->with('success', 'Order berhasil diperbarui!');
     }
 
     // Fungsi untuk Delete Data Order (By $id)
