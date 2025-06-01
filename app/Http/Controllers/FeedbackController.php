@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Feedback;
 
 class FeedbackController extends Controller
 {
@@ -11,7 +12,8 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        //
+        $feedbacks = Feedback::with('user')->latest()->get();
+        return view('feedback.index', compact('feedbacks'));
     }
 
     /**
@@ -19,7 +21,7 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        //
+        return view('feedback.create');
     }
 
     /**
@@ -27,7 +29,18 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:1000',
+        ]);
+
+        Feedback::create([
+            'user_id' => auth()->id(),
+            'rating' => $request->input('rating'),
+            'comment' => $request->input('comment'),
+        ]);
+
+        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil disimpan :)');
     }
 
     /**
@@ -35,7 +48,8 @@ class FeedbackController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $feedback = Feedback::with('user')->findOrFail($id);
+        return view('feedback.show', compact('feedback'));
     }
 
     /**
@@ -43,7 +57,13 @@ class FeedbackController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $feedback = Feedback::findOrFail($id);
+
+        if ($feedback->user_id !== auth()->id()) {
+            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki Feedback ini :(');
+        }
+
+        return view('feedback.edit', compact('feedback'));
     }
 
     /**
@@ -51,7 +71,23 @@ class FeedbackController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $feedback = Feedback::findOrFail($id);
+
+        if ($feedback->user_id !== auth()->id()) {
+            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki Feedback ini :(');
+        }
+
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:1000',
+        ]);
+
+        $feedback->update([
+            'rating' => $request->input('rating'),
+            'comment' => $request->input('comment'),
+        ]);
+
+        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil diperbarui :)');
     }
 
     /**
@@ -59,6 +95,14 @@ class FeedbackController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $feedback = Feedback::findOrFail($id);
+
+        if ($feedback->user_id !== auth()->id()) {
+            return redirect()->route('feedback.index')->with('error', 'Anda tidak memiliki Feedback ini :(');
+        }
+
+        $feedback->delete();
+
+        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dihapus :)');
     }
 }
