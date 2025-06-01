@@ -38,7 +38,18 @@ Route::middleware('auth')->group(function () {
     });
 
     /*  Routes untuk Fitur Order  */
-
+    Route::controller(OrderController::class)
+    ->prefix('order')
+    ->middleware(['auth', 'verified'])
+    ->group(function () {
+        Route::get('', 'index')->name('order');
+        Route::get('/create/{menu_code}', 'create')->name('order.create');
+        Route::post('/store', 'store')->name('order.store');
+        Route::get('/show/{id}', 'show')->name('order.show');
+        Route::get('/edit/{id}', 'edit')->name('order.edit');
+        Route::put('/edit/{id}', 'update')->name('order.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('order.destroy');
+    });
 
     /*  Routes untuk Fitur Delivery  */
 
