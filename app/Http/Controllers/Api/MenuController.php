@@ -11,6 +11,7 @@ class MenuController extends Controller
     public function index()
     {
     
+    // Fungsi untuk Menampilkan Data Menu (All) via API
     $menu = Menu::latest()->get();
 
         if ($menu->isEmpty()) {

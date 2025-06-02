@@ -9,6 +9,7 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
+    // Fungsi untuk Menampilkan Data Order (All) via API
     public function index()
     {
         $orders = Order::latest()->get();

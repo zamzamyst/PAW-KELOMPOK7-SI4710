@@ -9,6 +9,8 @@ use App\Models\Feedback;
 
 class FeedbackController extends Controller
 {
+
+    // Fungsi untuk Menampilkan Data Feedback (All) via API
     public function index()
     {
         $feedback = Feedback::latest()->get();
@@ -28,6 +30,7 @@ class FeedbackController extends Controller
         }
     }
 
+    // Fungsi untuk Menampilkan Data Feedback (By ID) via API
     public function show($id)
     {
         $feedback = feedback::find($id);
