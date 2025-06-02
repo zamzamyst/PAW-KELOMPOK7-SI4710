@@ -4,12 +4,6 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Daftar Feedback') }}
             </h2>
-            @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('seller'))
-            <a href="{{ route('feedback.create') }}"
-                class="inline-block bg-[#881a14] text-white px-4 py-2 rounded hover:bg-[#6f1611]">
-                Add Feedback
-            </a>
-            @endif
         </div>
     </x-slot>
 
