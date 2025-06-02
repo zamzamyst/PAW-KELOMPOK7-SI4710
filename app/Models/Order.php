@@ -16,4 +16,9 @@ class Order extends Model
     'quantity',
     'notes',
     ];
+
+    public function feedback()
+    {
+        return $this->hasOne(Feedback::class);
+    }
 }
