@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\MenuController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\DeliveryController;
+use App\Http\Controllers\Api\FeedbackController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -9,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('api')
     ->prefix('api')
     ->group(function () {
-        //
+        Route::get('/menu', [MenuController::class, 'index']);
+        Route::get('/menu/{id}', [MenuController::class, 'show']);
     });
 
 
@@ -33,7 +37,8 @@ Route::middleware('api')
 Route::middleware('api')
     ->prefix('api')
     ->group(function () {
-        //
+        Route::get('/feedback', [FeedbackController::class, 'index']);
+        Route::get('/feedback/{id}', [FeedbackController::class, 'show']);
     });
 
 /*  Routes API untuk Fitur Users  */
