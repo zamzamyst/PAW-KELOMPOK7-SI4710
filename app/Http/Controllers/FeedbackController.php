@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Feedback;
+use App\Models\Order;
 
 class FeedbackController extends Controller
 {
@@ -12,76 +13,39 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        $feedbacks = Feedback::with('user')->latest()->get();
+        $feedbacks = Feedback::with('order')->orderBy('created_at', 'desc')->get();
         return view('feedback.index', compact('feedbacks'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for automatically created new resource.
      */
-    public function create()
+    public function show($id)
     {
-        return view('feedback.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'nullable|string|max:1000',
-        ]);
-
-        Feedback::create([
-            'user_id' => auth()->id(),
-            'rating' => $request->input('rating'),
-            'comment' => $request->input('comment'),
-        ]);
-
-        return redirect()->route('feedback')->with('success', 'Feedback berhasil disimpan :)');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $feedback = Feedback::with('user')->findOrFail($id);
+        $feedback = Feedback::with('order')->findOrFail($id);
         return view('feedback.show', compact('feedback'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        $feedback = Feedback::findOrFail($id);
-
-        if ($feedback->user_id !== auth()->id()) {
-            return redirect()->route('feedback')->with('error', 'Anda tidak memiliki Feedback ini :(');
-        }
-
+        $feedback = Feedback::with('order')->findOrFail($id);
         return view('feedback.edit', compact('feedback'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $feedback = Feedback::findOrFail($id);
-
-        if ($feedback->user_id !== auth()->id()) {
-            return redirect()->route('feedback')->with('error', 'Anda tidak memiliki Feedback ini :(');
-        }
-
         $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:1000',
         ]);
 
+        $feedback = Feedback::findOrFail($id); 
         $feedback->update([
             'rating' => $request->input('rating'),
             'comment' => $request->input('comment'),
@@ -93,7 +57,7 @@ class FeedbackController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $feedback = Feedback::findOrFail($id);
 

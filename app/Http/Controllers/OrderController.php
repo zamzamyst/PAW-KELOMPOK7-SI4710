@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order; 
 use App\Models\Menu; 
+use App\Models\Feedback;
 
 class OrderController extends Controller {
 
@@ -33,12 +34,18 @@ class OrderController extends Controller {
 
         $menu = Menu::where('menu_code', $request->menu_code)->first();
 
-        Order::create([
+        $order = Order::create([
             'menu_code' => $menu->menu_code,
             'name' => $menu->name,
             'price' => $menu->price,
             'quantity' => $request->quantity,
             'notes' => $request->notes,
+        ]);
+
+        Feedback::create([
+            'order_id' => $order->id,
+            'rating' => null,
+            'comment' => null,
         ]);
         
         return redirect()->route('menu')->with('success', 'Menu berhasil dipesan!');
