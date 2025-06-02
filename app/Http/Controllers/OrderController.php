@@ -40,6 +40,12 @@ class OrderController extends Controller {
             'quantity' => $request->quantity,
             'notes' => $request->notes,
         ]);
+
+        Feedback::create([
+        'order_id' => $order->id,
+        'rating' => null,
+        'comment' => null,
+        ]);
         
         return redirect()->route('menu')->with('success', 'Menu berhasil dipesan!');
     }
