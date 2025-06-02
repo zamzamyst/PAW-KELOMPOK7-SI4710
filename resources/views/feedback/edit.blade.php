@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="flex justify-end space-x-2">
-                        <a href="{{ route('feedback.index', $feedback->id) }}" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-4 py-2 rounded">
+                        <a href="{{ route('feedback', $feedback->id) }}" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-4 py-2 rounded">
                             Cancel
                         </a>
                         <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-2 rounded">
