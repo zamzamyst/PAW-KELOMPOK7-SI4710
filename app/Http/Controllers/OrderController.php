@@ -34,7 +34,7 @@ class OrderController extends Controller {
 
         $menu = Menu::where('menu_code', $request->menu_code)->first();
 
-        Order::create([
+        $order = Order::create([
             'menu_code' => $menu->menu_code,
             'name' => $menu->name,
             'price' => $menu->price,
@@ -43,9 +43,9 @@ class OrderController extends Controller {
         ]);
 
         Feedback::create([
-        'order_id' => $order->id,
-        'rating' => null,
-        'comment' => null,
+            'order_id' => $order->id,
+            'rating' => null,
+            'comment' => null,
         ]);
         
         return redirect()->route('menu')->with('success', 'Menu berhasil dipesan!');
