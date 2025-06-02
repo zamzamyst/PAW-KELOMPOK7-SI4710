@@ -8,39 +8,40 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    // Fungsi untuk Menampilkan Data User (All) via API
     public function index()
     {
-        $orders = User::latest()->get();
+        $users = User::latest()->get();
 
-        if ($orders->isEmpty()) {
+        if ($users->isEmpty()) {
             return response()->json([
                 'status' => false,
-                'message' => 'Data Order tidak tersedia!',
+                'message' => 'Data User tidak tersedia!',
             ], 404);
         } else {
             return response()->json([
                 'status' => true,
-                'message' => 'Data Order berhasil ditemukan!',
-                'data' => $orders
+                'message' => 'Data User berhasil ditemukan!',
+                'data' => $users
             ], 200);
         }
     }
 
-    // Fungsi untuk Menampilkan Data Order (By $id) via API
+    // Fungsi untuk Menampilkan Data User (By $id) via API
     public function show($id)
     {
-        $order = User::find($id);
+        $user = User::find($id);
         
-        if ($order) {
+        if ($user) {
             return response()->json([
                 'status' => true,
-                'message' => 'Data Order (ID: ' . $order->id . ') berhasil ditemukan!',
-                'data' => $order
+                'message' => 'Data User (ID: ' . $user->id . ') berhasil ditemukan!',
+                'data' => $user
             ], 200);
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'Data Order (ID: ' . $id . ') tidak ditemukan!',
+                'message' => 'Data User (ID: ' . $id . ') tidak ditemukan!',
             ], 404);
         }
     }

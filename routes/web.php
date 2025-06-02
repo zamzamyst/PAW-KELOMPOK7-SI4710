@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     ->prefix('feedback')
     ->middleware(['auth', 'verified'])
     ->group(function () {
-        Route::get('', 'index')->name('feedback.index');
+        Route::get('', 'index')->name('feedback');
         Route::get('create', 'create')->name('feedback.create');
         Route::post('store', 'store')->name('feedback.store');
         Route::get('show/{id}', 'show')->name('feedback.show');

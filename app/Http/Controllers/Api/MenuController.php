@@ -11,6 +11,7 @@ class MenuController extends Controller
     public function index()
     {
     
+    // Fungsi untuk Menampilkan Data Menu (All) via API
     $menu = Menu::latest()->get();
 
         if ($menu->isEmpty()) {
@@ -27,7 +28,7 @@ class MenuController extends Controller
             ], 200);
         }
     }
-       
+
     // Fungsi untuk Menampilkan Data Menu (By $id) via API
     public function show($id)
     {
@@ -47,7 +48,3 @@ class MenuController extends Controller
         }
     }
 }
-    
-
-
-  

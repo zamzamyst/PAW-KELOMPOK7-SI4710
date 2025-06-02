@@ -42,7 +42,7 @@
                         class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded">
                         Edit
                     </a>
-                    <a href="{{ route('feedback.index') }}" 
+                    <a href="{{ route('feedback') }}" 
                         class="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-4 py-2 rounded">
                         Back
                     </a>

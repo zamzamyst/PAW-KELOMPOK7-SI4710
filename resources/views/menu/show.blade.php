@@ -35,6 +35,7 @@
                     </div>
                 </div>
 
+                @if (auth()->user()->hasRole('admin') | auth()->user()->hasRole('seller'))
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">Created At</label>
@@ -47,6 +48,7 @@
                             readonly>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
