@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id')->unique();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->tinyInteger('rating')->comment('Nilai Rating (1-5)');
+            $table->tinyInteger('rating')->nullable()->comment('Nilai Rating (1-5)');
             $table->text('comment')->nullable();
             $table->timestamps();
 
