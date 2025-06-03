@@ -61,9 +61,7 @@ class FeedbackController extends Controller
     {
         $feedback = Feedback::findOrFail($id);
 
-        if ($feedback->user_id !== auth()->id()) {
-            return redirect()->route('feedback')->with('error', 'Anda tidak memiliki Feedback ini :(');
-        }
+        
 
         $feedback->delete();
 
