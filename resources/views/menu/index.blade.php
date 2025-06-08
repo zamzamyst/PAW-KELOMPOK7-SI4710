@@ -40,7 +40,7 @@
                             <td class="px-4 py-2 align-middle">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 align-middle">{{ $rs->menu_code }}</td>
                             <td class="px-4 py-2 align-middle">{{ $rs->name }}</td>
-                            <td class="px-4 py-2 align-middle">{{ $rs->price }}</td>
+                            <td class="px-4 py-2 align-middle">Rp {{ number_format($rs->price, 0, ',', '.') }}</td>
                             <td class="px-4 py-2 align-middle">{{ $rs->description }}</td>
                             <td class="px-4 py-2 align-middle">
                                 <div class="flex justify-center gap-1 flex-wrap">
