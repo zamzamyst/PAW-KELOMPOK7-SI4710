@@ -61,8 +61,6 @@ class FeedbackController extends Controller
     {
         $feedback = Feedback::findOrFail($id);
 
-        
-
         $feedback->delete();
 
         return redirect()->route('feedback')->with('success', 'Feedback berhasil dihapus :)');
