@@ -46,13 +46,13 @@ Berikut merupakan tahap instalasi yang harus dilakukan untuk menjalankan proyek 
     ```sh
     php artisan key:generate
     ```
-9. Seed all user
-    ```sh
-    php artisan db:seed --class=UserSeeder
-    ```
-10. Seed roles and permission
+9. Seed roles and permission
     ```sh
     php artisan db:seed --class=RolePermissionSeeder
+    ```
+10. Seed all user
+    ```sh
+    php artisan db:seed --class=UserSeeder
     ```
 11. Seed template menu
     ```sh
@@ -61,5 +61,12 @@ Berikut merupakan tahap instalasi yang harus dilakukan untuk menjalankan proyek 
 12. Start laravel project
     ```sh
     php artisan serve
+
+### Cara Penggunaan
+
+Untuk menggunakan fitur CRUD pada proyek ini, anda harus login dengan 2 jenis akun yang tersedia pada `database/seeders/UserSeeder.php`.
+
+1. Login sebagai Admin, untuk mengakses semua fitur (kecuali Tambah Order).
+2. Login sebagai Customer untuk mengakses fitur Tambah Order
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
