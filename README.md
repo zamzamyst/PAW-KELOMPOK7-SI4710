@@ -50,11 +50,11 @@ Berikut merupakan tahap instalasi yang harus dilakukan untuk menjalankan proyek 
     ```sh
     php artisan db:seed --class=UserSeeder
     ```
-10.  Seed roles and permission
+10. Seed roles and permission
     ```sh
     php artisan db:seed --class=RolePermissionSeeder
     ```
-11.  Seed template menu
+11. Seed template menu
     ```sh
     php artisan db:seed --class=MenuSeeder
     ```
