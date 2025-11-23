@@ -68,6 +68,16 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         // dd($request->all());
 
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email'],
+        ], [
+            // CUSTOM MESSAGES DI SINI
+            'name.required' => 'Nama tidak boleh kosong.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Email Harus mengandung "@".',
+        ]);
+
         $user->update($request->all());
 
         return redirect()->route('user')->with('success', 'User berhasil diperbarui!');
