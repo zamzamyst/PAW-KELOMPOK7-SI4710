@@ -49,9 +49,16 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="bg-[#881a14] text-white px-4 py-2 rounded hover:bg-[#6f1611]">
-                        Update Delivery
-                    </button>
+                    <div class="flex justify-end gap-2">
+                        <a href="{{ route('delivery') }}"
+                            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-sm font-medium">
+                            Back to List
+                        </a>
+                        <button type="submit"
+                            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm font-medium">
+                            Update
+                        </button>
+                    </div>
                 </form>
 
             </div>

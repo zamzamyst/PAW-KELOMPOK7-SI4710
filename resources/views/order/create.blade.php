@@ -34,21 +34,27 @@
 
                     <div class="mb-4">
                         <label for="quantity" class="block text-gray-700 font-semibold mb-2">Quantity</label>
-                        <input type="number" name="quantity" id="quantity" value="{{ old('quantity', 1) }}" min="1"
-                            required class="w-full border border-gray-300 rounded px-3 py-2" />
+                        <input type="number" name="quantity" id="quantity" value="{{ old('quantity', 1) }}"
+                            min="1" required class="w-full border border-gray-300 rounded px-3 py-2" />
                     </div>
 
                     <div class="mb-4">
                         <label for="notes" class="block text-gray-700 font-semibold mb-2">Notes</label>
-                        <textarea name="notes" id="notes" rows="3"
-                            class="w-full border border-gray-300 rounded px-3 py-2">{{ old('notes') }}</textarea>
+                        <textarea name="notes" id="notes" rows="3" class="w-full border border-gray-300 rounded px-3 py-2">{{ old('notes') }}</textarea>
                     </div>
 
-                    <button type="submit" class="bg-[#881a14] text-white px-4 py-2 rounded hover:bg-[#6f1611]">
-                        Order Now
-                    </button>
+                    <div class="flex justify-end gap-2">
+                        <a href="{{ route('menu') }}"
+                            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-sm font-medium">
+                            Cancel
+                        </a>
+                        <button type="submit"
+                            class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm font-medium">
+                            Update
+                        </button>
+                    </div>
                 </form>
-                
+
             </div>
         </div>
     </div>

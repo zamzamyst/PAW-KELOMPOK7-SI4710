@@ -43,19 +43,19 @@
                             <td class="px-4 py-2 align-middle">Rp {{ number_format($rs->price, 0, ',', '.') }}</td>
                             <td class="px-4 py-2 align-middle">{{ $rs->description }}</td>
                             <td class="px-4 py-2 align-middle">
-                                <div class="flex justify-center gap-1 flex-wrap">
+                                <div class="flex justify-center gap-2 flex-wrap">
                                     <a href="{{ route('menu.show', $rs->id) }}"
-                                        class="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-800 text-sm">Detail</a>
+                                        class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-800 text-sm font-medium inline-block">Detail</a>
 
                                     @if (auth()->user()->hasRole('seller') | auth()->user()->hasRole('admin'))
                                     <a href="{{ route('menu.edit', $rs->id) }}"
-                                        class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 text-sm">Edit</a>
+                                        class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm font-medium inline-block">Edit</a>
                                     <form action="{{ route('menu.destroy', $rs->id) }}" method="POST"
-                                        onsubmit="return confirm('Delete?')">
+                                        onsubmit="return confirm('Delete?')" class="inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                            class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-sm">
+                                            class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm font-medium">
                                             Delete
                                         </button>
                                     </form>
@@ -63,7 +63,7 @@
 
                                     @if (auth()->user()->hasRole('admin')) 
                                     <a href="{{ route('order.create', $rs->menu_code) }}"
-                                        class="bg-[#881a14] text-white px-2 py-1 rounded  hover:bg-[#6f1611] text-sm">Order</a>
+                                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm font-medium inline-block">Order</a>
                                     @endif
                                 </div>
                             </td>

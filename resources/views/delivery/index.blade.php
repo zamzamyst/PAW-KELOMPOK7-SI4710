@@ -53,31 +53,30 @@
                                 </span>
                             </td>
                             <td class="px-4 py-2 align-middle">
-                                <div class="flex justify-center gap-1 flex-wrap">
+                                <div class="flex justify-center gap-2 flex-wrap">
                                     <a href="{{ route('delivery.show', $rs->id) }}"
-                                        class="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-800 text-sm">Detail</a>
+                                        class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-800 text-sm font-medium inline-block">Detail</a>
 
                                     <a href="{{ route('delivery.edit', $rs->id) }}"
-                                        class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 text-sm">Edit</a>
+                                        class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm font-medium inline-block">Edit</a>
                                         
                                         @if (auth()->user()->hasRole('admin'))
                                         <form action="{{ route('delivery.destroy', $rs->id) }}" method="POST"
-                                            onsubmit="return confirm('Hapus delivery ini?')">
+                                            onsubmit="return confirm('Hapus delivery ini?')" class="inline-block">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-sm">
+                                                class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm font-medium">
                                                 Delete
                                             </button>
                                         </form>
                                         @endif
                                         
                                     @if(!$rs->tracking)
-                                    <a href="{{ route('tracking.create', $rs->id) }}" class="bg-[#881a14] text-white px-2 py-1 rounded hover:bg-red-700 text-sm">Create Tracking</a>
-                                    </a>
+                                    <a href="{{ route('tracking.create', $rs->id) }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm font-medium inline-block">Create Tracking</a>
                                     @else
                                     <a href="{{ route('tracking.show', $rs->tracking->id) }}"
-                                        class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 text-sm">
+                                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm font-medium inline-block">
                                         View Tracking
                                     </a>
                                     @endif

@@ -25,11 +25,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">Menu Name</label>
-                        <input type="text" class="form-input w-full" value="{{ $delivery->order->name ?? '-' }}" readonly>
+                        <input type="text" class="form-input w-full" value="{{ $delivery->order->name ?? '-' }}"
+                            readonly>
                     </div>
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">Quantity</label>
-                        <input type="text" class="form-input w-full" value="{{ $delivery->order->quantity ?? '-' }}" readonly>
+                        <input type="text" class="form-input w-full" value="{{ $delivery->order->quantity ?? '-' }}"
+                            readonly>
                     </div>
                 </div>
 
@@ -40,7 +42,8 @@
                     </div>
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">Status</label>
-                        <input type="text" class="form-input w-full" value="{{ $delivery->formatted_status }}" readonly>
+                        <input type="text" class="form-input w-full" value="{{ $delivery->formatted_status }}"
+                            readonly>
                     </div>
                 </div>
 
@@ -58,24 +61,33 @@
                 <hr class="my-6">
 
                 <!-- Tracking Section -->
-                @if($delivery->tracking)
-                <div class="p-4 bg-blue-50 rounded">
-                    <h4 class="font-bold text-blue-800 mb-2">Tracking Information</h4>
-                    <p class="text-gray-700 mb-3">Coordinates: {{ $delivery->tracking->formatted_coordinates }}</p>
-                    <a href="{{ route('tracking.show', $delivery->tracking->id) }}" 
-                        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm inline-block">
-                        View Tracking Details
-                    </a>
-                </div>
+                @if ($delivery->tracking)
+                    <div class="p-4 bg-blue-50 rounded">
+                        <h4 class="font-bold text-blue-800 mb-2">Tracking Information</h4>
+                        <p class="text-gray-700 mb-3">Coordinates: {{ $delivery->tracking->formatted_coordinates }}</p>
+                        <a href="{{ route('tracking.show', $delivery->tracking->id) }}"
+                            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm inline-block">
+                            View Tracking Details
+                        </a>
+                    </div>
                 @else
-                <div class="p-4 bg-yellow-50 rounded">
-                    <h4 class="font-bold text-yellow-800 mb-2">No Tracking Yet</h4>
-                    <p class="text-gray-700 mb-3">This delivery doesn't have tracking assigned yet.</p>
-                    <a href="{{ route('tracking.create', $delivery->id) }}" 
-                        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm inline-block">
-                        Create Tracking
-                    </a>
-                </div>
+                    <div class="p-4 bg-yellow-50 rounded">
+                        <h4 class="font-bold text-yellow-800 mb-2">No Tracking Yet</h4>
+                        <p class="text-gray-700 mb-3">This delivery doesn't have tracking assigned yet.</p>
+                        <a href="{{ route('tracking.create', $delivery->id) }}"
+                            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm font-medium inline-block">
+                            Create Tracking
+                        </a>
+                    </div>
+
+                    <hr class="my-6">
+
+                    <div class="flex justify-end gap-2">
+                        <a href="{{ route('delivery') }}"
+                            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-sm font-medium">
+                            Back to List
+                        </a>
+                    </div>
                 @endif
             </div>
         </div>

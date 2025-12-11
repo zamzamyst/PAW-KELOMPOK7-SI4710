@@ -53,21 +53,21 @@
                             <td class="px-4 py-2 align-middle">
                                 <div class="flex gap-2 justify-center">
                                     <a href="{{ route('tracking.show', $rs->id) }}"
-                                        class="bg-[#6f1611] text-white px-3 py-1 rounded text-sm hover:bg-blue-600">
+                                        class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-800 text-sm font-medium inline-block">
                                         Detail
                                     </a>
                                     <a href="{{ route('tracking.edit', $rs->id) }}"
-                                        class="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600">
+                                        class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm font-medium inline-block">
                                         Edit
                                     </a>
                                     @if(auth()->user()->hasRole('admin'))
                                     <form action="{{ route('tracking.destroy', $rs->id) }}" method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus tracking ini?')">
+                                        onsubmit="return confirm('Yakin ingin menghapus tracking ini?')" class="inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                            class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">
-                                            Hapus
+                                            class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm font-medium">
+                                            Delete
                                         </button>
                                     </form>
                                     @endif

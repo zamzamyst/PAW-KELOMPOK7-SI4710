@@ -41,7 +41,7 @@
 
                 <div class="flex justify-end">
                     <a href="{{ route('feedback') }}"
-                        class="inline-block bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700 text-sm">
+                        class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-sm font-medium inline-block">
                         Return
                     </a>
                 </div>

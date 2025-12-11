@@ -49,6 +49,13 @@
                     </div>
                 </div>
                 @endif
+
+                <div class="flex gap-2 mt-6">
+                    <a href="{{ route('menu') }}" 
+                        class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-sm font-medium">
+                        Back to List
+                    </a>
+                </div>
             </div>
         </div>
     </div>

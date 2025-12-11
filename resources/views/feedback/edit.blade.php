@@ -59,9 +59,14 @@
                         @enderror
                     </div>
 
-                    <div class="flex justify-end">
-                        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-2 rounded">
-                            Update Feedback
+                    <div class="flex justify-end gap-2">
+                        <a href="{{ route('menu') }}"
+                            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-sm font-medium">
+                            Cancel
+                        </a>
+                        <button type="submit"
+                            class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm font-medium">
+                            Update
                         </button>
                     </div>
                 </form>
