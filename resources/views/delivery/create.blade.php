@@ -15,25 +15,25 @@
                     <input type="hidden" name="order_id" value="{{ $order->id }}">
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 font-semibold mb-2">Order ID</label>
-                        <input type="text" value="{{ $order->id }}" readonly
+                        <label for="order_id" class="block text-gray-700 font-semibold mb-2">Order ID</label>
+                        <input type="text" id="order_id" value="{{ $order->id }}" readonly
                             class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100" />
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 font-semibold mb-2">Menu Name</label>
-                        <input type="text" value="{{ $order->name }}" readonly
+                        <label for="name" class="block text-gray-700 font-semibold mb-2">Menu Name</label>
+                        <input type="text" id="name" value="{{ $order->name }}" readonly
                             class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100" />
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 font-semibold mb-2">Quantity</label>
-                        <input type="text" value="{{ $order->quantity }}" readonly
+                        <label for="quantity" class="block text-gray-700 font-semibold mb-2">Quantity</label>
+                        <input type="text" id="quantity" value="{{ $order->quantity }}" readonly
                             class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100" />
                     </div>
 
                     <div class="mb-4">
-                        <label for="delivery_address" class="block text-gray-700 font-semibold mb-2">Alamat Pengiriman <span class="text-red-500">*</span></label>
+                        <label for="delivery_address" class="block text-gray-700 font-semibold mb-2">Delivery Address</label>
                         <textarea name="delivery_address" id="delivery_address" rows="3" required
                             class="w-full border border-gray-300 rounded px-3 py-2">{{ old('delivery_address') }}</textarea>
                         @error('delivery_address')
@@ -42,29 +42,25 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="delivery_status" class="block text-gray-700 font-semibold mb-2">Status Pengiriman <span class="text-red-500">*</span></label>
+                        <label for="delivery_status" class="block text-gray-700 font-semibold mb-2">Delivery Status</label>
                         <select name="delivery_status" id="delivery_status" required
                             class="w-full border border-gray-300 rounded px-3 py-2">
-                            <option value="pending" {{ old('delivery_status') == 'pending' ? 'selected' : '' }}>Menunggu</option>
-                            <option value="in_transit" {{ old('delivery_status') == 'in_transit' ? 'selected' : '' }}>Dalam Pengiriman</option>
-                            <option value="delivered" {{ old('delivery_status') == 'delivered' ? 'selected' : '' }}>Terkirim</option>
-                            <option value="cancelled" {{ old('delivery_status') == 'cancelled' ? 'selected' : '' }}>Dibatalkan</option>
+                            <option value="">-- Select Status --</option>
+                            <option value="pending" {{ old('delivery_status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="in_transit" {{ old('delivery_status') == 'in_transit' ? 'selected' : '' }}>In Transit</option>
+                            <option value="delivered" {{ old('delivery_status') == 'delivered' ? 'selected' : '' }}>Delivered</option>
+                            <option value="cancelled" {{ old('delivery_status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
                         @error('delivery_status')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="flex gap-2">
-                        <button type="submit" class="bg-[#881a14] text-white px-4 py-2 rounded hover:bg-[#6f1611]">
-                            Buat Delivery
-                        </button>
-                        <a href="{{ route('delivery') }}" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
-                            Kembali
-                        </a>
-                    </div>
+                    <button type="submit" class="bg-[#881a14] text-white px-4 py-2 rounded hover:bg-[#6f1611]">
+                        Create Delivery
+                    </button>
                 </form>
-                
+
             </div>
         </div>
     </div>
