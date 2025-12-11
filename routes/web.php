@@ -6,6 +6,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\TrackingController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -52,7 +54,33 @@ Route::middleware('auth')->group(function () {
     });
 
     /*  Routes untuk Fitur Delivery  */
+     Route::controller(DeliveryController::class)
+    ->prefix('delivery')
+    ->middleware(['auth', 'verified'])
+    ->group(function () {
+        Route::get('', 'index')->name('delivery');
+        Route::get('/create/{order_id}', 'create')->name('delivery.create');
+        Route::post('/store', 'store')->name('delivery.store');
+        Route::get('/show/{id}', 'show')->name('delivery.show');
+        Route::get('/edit/{id}', 'edit')->name('delivery.edit');
+        Route::put('/edit/{id}', 'update')->name('delivery.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('delivery.destroy');
+    });
 
+    /*  Routes untuk Fitur Tracking  */
+    Route::controller(TrackingController::class)
+    ->prefix('tracking')
+    ->middleware(['auth', 'verified'])
+    ->group(function () {
+        Route::get('', 'index')->name('tracking');
+        Route::get('/create/{delivery_id}', 'create')->name('tracking.create');
+        Route::post('/store', 'store')->name('tracking.store');
+        Route::get('/show/{id}', 'show')->name('tracking.show');
+        Route::get('/edit/{id}', 'edit')->name('tracking.edit');
+        Route::put('/edit/{id}', 'update')->name('tracking.update');
+        Route::put('/update-by-delivery/{delivery_id}', 'updateByDelivery')->name('tracking.updateByDelivery');
+        Route::delete('/destroy/{id}', 'destroy')->name('tracking.destroy');
+    });
 
     /*  Routes untuk Fitur Feedback  */
     Route::controller(FeedbackController::class)
