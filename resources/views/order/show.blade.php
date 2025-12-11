@@ -52,6 +52,49 @@
                             readonly>
                     </div>
                 </div>
+
+                <hr class=\"my-6\">
+
+                <!-- Delivery Section -->
+                @if($order->delivery)
+                <div class=\"p-4 bg-blue-50 rounded\">
+                    <h4 class=\"font-bold text-blue-800 mb-2\">Delivery Information</h4>
+                    <p class=\"text-gray-700 mb-2\">Status: 
+                        <span class=\"px-2 py-1 rounded text-white text-xs {{ $order->delivery->status_badge }}\">
+                            {{ $order->delivery->formatted_status }}
+                        </span>
+                    </p>
+                    <p class=\"text-gray-700 mb-3\">Address: {{ Str::limit($order->delivery->delivery_address, 50) }}</p>
+                    <a href=\"{{ route('delivery.show', $order->delivery->id) }}\" 
+                        class=\"bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm inline-block\">
+                        View Delivery Details
+                    </a>
+                </div>
+                @else
+                <div class=\"p-4 bg-yellow-50 rounded\">
+                    <h4 class=\"font-bold text-yellow-800 mb-2\">No Delivery Yet</h4>
+                    <p class=\"text-gray-700 mb-3\">This order doesn't have a delivery assigned yet.</p>
+                    @if(auth()->user()->hasRole('seller') || auth()->user()->hasRole('admin'))
+                    <a href=\"{{ route('delivery.create', $order->id) }}\" 
+                        class=\"bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm inline-block\">
+                        Create Delivery
+                    </a>
+                    @endif
+                </div>
+                @endif
+
+                <div class=\"flex gap-2 mt-6\">
+                    <a href=\"{{ route('order') }}\" 
+                        class=\"bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600\">
+                        Back to List
+                    </a>
+                    @if(auth()->user()->hasRole('seller') || auth()->user()->hasRole('admin'))
+                    <a href=\"{{ route('order.edit', $order->id) }}\" 
+                        class=\"bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600\">
+                        Edit Order
+                    </a>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

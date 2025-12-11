@@ -60,7 +60,7 @@
 
                     <div class="flex gap-2 mt-6">
                         <button type="submit"
-                            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                            class="bg-[#6f1611] text-white px-4 py-2 rounded hover:bg-green-600">
                             Buat Tracking dengan Koordinat Acak
                         </button>
                         <a href="{{ route('delivery.show', $delivery->id) }}"

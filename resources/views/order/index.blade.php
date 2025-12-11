@@ -61,6 +61,17 @@
                                         </button>
                                     </form>
                                     @endif
+
+                                    @if (auth()->user()->hasRole('seller') | auth()->user()->hasRole('admin'))
+                                        @if(!$rs->delivery)
+                                        <a href="{{ route('delivery.create', $rs->id) }}" class="btn btn-primary">Create Delivery</a>
+                                        @else
+                                        <a href="{{ route('delivery.show', $rs->delivery->id) }}"
+                                            class="bg-[#881a14] text-white px-2 py-1 rounded hover:bg-[#6f1611] text-sm">
+                                            View Delivery
+                                        </a>
+                                        @endif
+                                    @endif
                                 </div>
                             </td>
                         </tr>

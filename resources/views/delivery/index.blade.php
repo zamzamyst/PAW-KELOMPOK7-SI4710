@@ -59,18 +59,29 @@
 
                                     <a href="{{ route('delivery.edit', $rs->id) }}"
                                         class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 text-sm">Edit</a>
-
-                                    @if (auth()->user()->hasRole('admin'))
-                                    <form action="{{ route('delivery.destroy', $rs->id) }}" method="POST"
-                                        onsubmit="return confirm('Hapus delivery ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-sm">
-                                            Delete
-                                        </button>
-                                    </form>
+                                        
+                                        @if (auth()->user()->hasRole('admin'))
+                                        <form action="{{ route('delivery.destroy', $rs->id) }}" method="POST"
+                                            onsubmit="return confirm('Hapus delivery ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-sm">
+                                                Delete
+                                            </button>
+                                        </form>
+                                        @endif
+                                        
+                                    @if(!$rs->tracking)
+                                    <a href="{{ route('tracking.create', $rs->id) }}" class="bg-[#881a14] text-white px-2 py-1 rounded hover:bg-red-700 text-sm">Create Tracking</a>
+                                    </a>
+                                    @else
+                                    <a href="{{ route('tracking.show', $rs->tracking->id) }}"
+                                        class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 text-sm">
+                                        View Tracking
+                                    </a>
                                     @endif
+
                                 </div>
                             </td>
                         </tr>

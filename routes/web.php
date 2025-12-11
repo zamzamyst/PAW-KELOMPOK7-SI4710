@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
     });
 
     /*  Routes untuk Fitur Delivery  */
-     Route::controller(DeliveryController::class)
+    Route::controller(DeliveryController::class)
     ->prefix('delivery')
     ->middleware(['auth', 'verified'])
     ->group(function () {

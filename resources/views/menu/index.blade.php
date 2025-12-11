@@ -47,11 +47,6 @@
                                     <a href="{{ route('menu.show', $rs->id) }}"
                                         class="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-800 text-sm">Detail</a>
 
-                                    @if (auth()->user()->hasRole('customer'))
-                                    <a href="{{ route('order.create', $rs->menu_code) }}"
-                                        class="bg-yellow-500 text-white px-2 py-1 rounded  hover:bg-yellow-600 text-sm">Order</a>
-                                    @endif
-
                                     @if (auth()->user()->hasRole('seller') | auth()->user()->hasRole('admin'))
                                     <a href="{{ route('menu.edit', $rs->id) }}"
                                         class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 text-sm">Edit</a>
@@ -64,6 +59,11 @@
                                             Delete
                                         </button>
                                     </form>
+                                    @endif
+
+                                    @if (auth()->user()->hasRole('admin')) 
+                                    <a href="{{ route('order.create', $rs->menu_code) }}"
+                                        class="bg-[#881a14] text-white px-2 py-1 rounded  hover:bg-[#6f1611] text-sm">Order</a>
                                     @endif
                                 </div>
                             </td>
