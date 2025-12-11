@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\DeliveryController;
 use App\Http\Controllers\Api\FeedbackController;
+use App\Http\Controllers\Api\TrackingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,7 +31,23 @@ Route::middleware('api')
 Route::middleware('api')
     ->prefix('api')
     ->group(function () {
-        //
+        Route::get('/delivery', [DeliveryController::class, 'index']);
+        Route::get('/delivery/{id}', [DeliveryController::class, 'show']);
+        Route::post('/delivery', [DeliveryController::class, 'store']);
+        Route::put('/delivery/{id}', [DeliveryController::class, 'update']);
+        Route::delete('/delivery/{id}', [DeliveryController::class, 'destroy']);
+    });
+
+/*  Routes API untuk Fitur Tracking  */
+Route::middleware('api')
+    ->prefix('api')
+    ->group(function () {
+        Route::get('/tracking', [TrackingController::class, 'index']);
+        Route::get('/tracking/{id}', [TrackingController::class, 'show']);
+        Route::post('/tracking', [TrackingController::class, 'store']);
+        Route::put('/tracking/{id}', [TrackingController::class, 'update']);
+        Route::put('/tracking/delivery/{delivery_id}', [TrackingController::class, 'updateByDelivery']);
+        Route::delete('/tracking/{id}', [TrackingController::class, 'destroy']);
     });
 
 /*  Routes API untuk Fitur Feedback  */
