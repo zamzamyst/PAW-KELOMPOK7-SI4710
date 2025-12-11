@@ -88,6 +88,8 @@ Route::middleware('auth')->group(function () {
     ->middleware(['auth', 'verified'])
     ->group(function () {
         Route::get('', 'index')->name('feedback');
+        Route::get('create/{order_id}', 'create')->name('feedback.create');
+        Route::post('store', 'store')->name('feedback.store');
         Route::get('show/{id}', 'show')->name('feedback.show');
         Route::get('edit/{id}', 'edit')->name('feedback.edit');
         Route::put('edit/{id}', 'update')->name('feedback.update');

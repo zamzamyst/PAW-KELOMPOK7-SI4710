@@ -23,6 +23,8 @@
                 <form action="{{ route('feedback.store') }}" method="POST">
                     @csrf
 
+                    <input type="hidden" name="order_id" value="{{ $order->id }}">
+
                     <div class="mb-4">
                         <label for="rating" class="block text-gray-700 font-semibold mb-2">Rating (1-5)</label>
                         <select name="rating" id="rating" required class="w-full bg-gray-100 border border-gray-300 rounded px-3 py-2">

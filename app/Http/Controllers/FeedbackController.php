@@ -18,6 +18,42 @@ class FeedbackController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create($order_id)
+    {
+        $order = Order::findOrFail($order_id);
+        
+        // Check if feedback already exists for this order
+        if ($order->feedback) {
+            return redirect()->route('feedback.show', $order->feedback->id)
+                ->with('info', 'Feedback sudah ada untuk order ini.');
+        }
+
+        return view('feedback.create', compact('order'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:1000',
+        ]);
+
+        $feedback = Feedback::create([
+            'order_id' => $request->order_id,
+            'user_id' => auth()->id(),
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->route('feedback')->with('success', 'Feedback berhasil ditambahkan!');
+    }
+
+    /**
      * Show the form for automatically created new resource.
      */
     public function show($id)
