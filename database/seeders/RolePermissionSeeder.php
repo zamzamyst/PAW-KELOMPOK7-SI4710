@@ -40,6 +40,11 @@ class RolePermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'update-delivery']);
         Permission::firstOrCreate(['name' => 'delete-delivery']);
 
+        Permission::firstOrCreate(['name' => 'create-tracking']);
+        Permission::firstOrCreate(['name' => 'read-tracking']);
+        Permission::firstOrCreate(['name' => 'update-tracking']);
+        Permission::firstOrCreate(['name' => 'delete-tracking']);
+
         /** LIST ROLE **/
         Role::create(['name'=>'admin']);
         Role::create(['name'=>'seller']);
@@ -72,6 +77,11 @@ class RolePermissionSeeder extends Seeder
         $roleAdmin->givePermissionTo('update-delivery');
         $roleAdmin->givePermissionTo('delete-delivery');
 
+        $roleAdmin->givePermissionTo('create-tracking');
+        $roleAdmin->givePermissionTo('read-tracking');
+        $roleAdmin->givePermissionTo('update-tracking');
+        $roleAdmin->givePermissionTo('delete-tracking');
+
         /** PERMISSION FOR SELLER **/
         $roleSeller = Role::findByName('seller');
         $roleSeller->givePermissionTo('create-menu');
@@ -89,11 +99,17 @@ class RolePermissionSeeder extends Seeder
         $roleSeller->givePermissionTo('update-delivery');
         $roleSeller->givePermissionTo('delete-delivery');
 
+        $roleSeller->givePermissionTo('create-tracking');
+        $roleSeller->givePermissionTo('read-tracking');
+        $roleSeller->givePermissionTo('update-tracking');
+        $roleSeller->givePermissionTo('delete-tracking');
+
         /** PERMISSION FOR CUSTOMER **/
         $roleCustomer = Role::findByName('customer');
         $roleCustomer->givePermissionTo('create-customer');
         $roleCustomer->givePermissionTo('read-menu');
         $roleCustomer->givePermissionTo('create-order');
         $roleCustomer->givePermissionTo('read-order');
+        $roleCustomer->givePermissionTo('read-tracking');
     }
 }
