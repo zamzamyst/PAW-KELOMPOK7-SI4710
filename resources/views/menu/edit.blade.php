@@ -40,7 +40,7 @@
                             <input type="text" name="price" class="w-full border rounded px-3 py-2"
                                 placeholder="Price" value="{{ old('price', $menu->price) }}">
                             @error('price')
-                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                <div class="text-red-500 text-sm mt-1">Isi harga dengan nilai yang valid!</div>
                             @enderror
                         </div>
                         <div>

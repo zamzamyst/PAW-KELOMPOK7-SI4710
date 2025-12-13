@@ -34,7 +34,7 @@ class MenuController extends Controller
             'menu_code' => 'required|string|max:50|unique:menus,menu_code',
             'name' => 'required|string|max:100',
             'price' => 'required|numeric',
-            'description' => 'nullable|string'
+            'description' => 'required|string'
         ]);
 
         Menu::create($validated);
@@ -69,8 +69,15 @@ class MenuController extends Controller
     {
         $menu = Menu::findOrFail($id);
 
-        $menu->update($request->all());
-        
+        $validated = $request->validate([
+            'menu_code' => 'required|string|max:50|unique:menus,menu_code,' . $id,
+            'name' => 'required|string|max:100',
+            'price' => 'required|numeric',
+            'description' => 'required|string'
+        ]);
+
+        $menu->update($validated);
+
         return redirect()->route('menu')->with('success', 'Menu updated successfully');
     }
 
@@ -79,10 +86,18 @@ class MenuController extends Controller
          */
     public function destroy(string $id)
     {
-        $menu = Menu::findOrFail($id);
+        $menu = Menu::find($id);
+
+        if (!$menu) {
+            return redirect()
+                ->route('menu')
+                ->with('error', 'Menu not found');
+        }
 
         $menu->delete();
 
-        return redirect()->route('menu')->with('success', 'Menu deleted successfully');
+        return redirect()
+            ->route('menu')
+            ->with('success', 'Menu deleted successfully');
     }
 }
