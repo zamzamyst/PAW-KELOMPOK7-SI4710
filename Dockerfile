@@ -1,7 +1,7 @@
 FROM php:8.2-apache
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update --fix-missing && apt-get upgrade -y && apt-get install -y \
     git \
     curl \
     libpng-dev \

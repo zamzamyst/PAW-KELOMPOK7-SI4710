@@ -40,6 +40,11 @@ Docker menyediakan lingkungan yang konsisten di semua mesin, tanpa perlu instala
 
 4. Start Docker containers (includes Laravel app, MySQL, and PhpMyAdmin)
    ```sh
+   docker-compose up -d --build
+   ```
+   
+   **Note:** The `--build` flag builds the Docker image from the Dockerfile. If you only want to start containers (skip if image already built):
+   ```sh
    docker-compose up -d
    ```
 
@@ -130,5 +135,45 @@ Untuk menggunakan fitur CRUD pada proyek ini, anda harus login dengan 2 jenis ak
 
 1. Login sebagai Admin, untuk mengakses semua fitur (kecuali Tambah Order).
 2. Login sebagai Customer untuk mengakses fitur Tambah Order
+
+---
+
+## 🔧 Docker Troubleshooting
+
+### Docker Build Error (Exit Code 100)
+Jika mendapat error saat `docker-compose up -d`:
+```
+failed to solve: process "/bin/sh -c apt-get update..." did not complete successfully: exit code: 100
+```
+
+**Solusi:**
+```bash
+# 1. Clean everything
+docker-compose down -v
+docker system prune -a
+
+# 2. Rebuild dengan fresh cache
+docker-compose up -d --build
+```
+
+**Jika masih error:**
+```bash
+# Build tanpa cache
+docker-compose build --no-cache
+docker-compose up -d
+```
+
+**Penyebab umum:**
+- Network timeout (coba ulangi beberapa saat kemudian)
+- Disk space penuh (jalankan `docker system prune -a`)
+- Docker daemon issue (restart Docker Desktop)
+
+---
+
+## 📚 Documentation
+
+- [GraphQL Testing Guide](GRAPHQL_TESTING_GUIDE.md) - Cara menggunakan GraphQL Playground
+- [Docker Setup Guide](DOCKER_SETUP_GUIDE.md) - Detail setup Docker
+- [Architecture Documentation](ARCHITECTURE.md) - Struktur aplikasi
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
