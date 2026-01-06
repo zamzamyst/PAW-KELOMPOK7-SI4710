@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DeliveryService;
+use DB;
 
 class DeliveryServiceController extends Controller
 {
@@ -31,11 +32,18 @@ class DeliveryServiceController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:100|unique:delivery_services,name',
+            'name' => 'required|string|max:100',
             'price' => 'required|numeric|min:0',
             'estimation_days' => 'required|integer|min:0',
             'is_active' => 'boolean'
         ]);
+
+        // Check for duplicate name manually
+        if (DB::connection('mysql_delivery')->table('delivery_services')->where('name', $validated['name'])->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Service name already exists!');
+        }
 
         DeliveryService::create($validated);
 
@@ -70,11 +78,18 @@ class DeliveryServiceController extends Controller
         $service = DeliveryService::findOrFail($id);
 
         $validated = $request->validate([
-            'name' => 'required|string|max:100|unique:delivery_services,name,' . $id,
+            'name' => 'required|string|max:100',
             'price' => 'required|numeric|min:0',
             'estimation_days' => 'required|integer|min:0',
             'is_active' => 'boolean'
         ]);
+
+        // Check for duplicate name manually (excluding current record)
+        if (DB::connection('mysql_delivery')->table('delivery_services')->where('name', $validated['name'])->where('id', '!=', $id)->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Service name already exists!');
+        }
 
         $service->update($validated);
 

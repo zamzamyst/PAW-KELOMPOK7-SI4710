@@ -160,7 +160,7 @@ type Mutation {
     name: String!
     price: Float!
     description: String!
-  ): Menu! @create(model: "Menu")
+  ): Menu! @field(resolver: "App\\GraphQL\\Mutations\\CreateMenu")
   
   updateMenu(
     id: ID!
@@ -168,9 +168,9 @@ type Mutation {
     name: String
     price: Float
     description: String
-  ): Menu! @update(model: "Menu")
+  ): Menu! @field(resolver: "App\\GraphQL\\Mutations\\UpdateMenu")
   
-  deleteMenu(id: ID! @eq): Boolean! @delete(model: "Menu")
+  deleteMenu(id: ID! @eq): Boolean! @field(resolver: "App\\GraphQL\\Mutations\\DeleteMenu")
   
   # Order Mutations
   createOrder(

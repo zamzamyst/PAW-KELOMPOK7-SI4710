@@ -14,7 +14,7 @@ class MenuSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('menus')->insert([
+        DB::connection('mysql_menu')->table('menus')->insert([
             [
                 'menu_code' => 'ABC001',
                 'name' => 'Produk A',

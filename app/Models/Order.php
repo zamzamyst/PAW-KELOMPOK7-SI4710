@@ -9,6 +9,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql_order';
+
     protected $fillable = [
     'menu_code',
     'name',

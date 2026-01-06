@@ -23,11 +23,11 @@
                         {{ __('Menu') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <!-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('feedback')" :active="request()->routeIs('feedback')">
                         {{ __('Feedback') }}
                     </x-nav-link>
-                </div>
+                </div> -->
 
                 @if (auth()->user()->hasRole('seller') | auth()->user()->hasRole('admin'))
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

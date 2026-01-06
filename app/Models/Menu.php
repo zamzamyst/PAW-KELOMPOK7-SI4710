@@ -9,6 +9,8 @@ class Menu extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql_menu';
+
     protected $fillable = [
         'menu_code',
         'name',

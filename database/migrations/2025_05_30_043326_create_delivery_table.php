@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('deliveries', function (Blueprint $table) {
+        Schema::connection('mysql_delivery')->create('deliveries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id')->unique();
             $table->text('delivery_address');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('deliveries');
+        Schema::connection('mysql_delivery')->dropIfExists('deliveries');
     }
 };

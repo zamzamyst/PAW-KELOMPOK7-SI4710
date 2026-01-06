@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use DB;
 
 class MenuController extends Controller
 {
@@ -31,11 +32,18 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'menu_code' => 'required|string|max:50|unique:menus,menu_code',
+            'menu_code' => 'required|string|max:50',
             'name' => 'required|string|max:100',
             'price' => 'required|numeric',
             'description' => 'required|string'
         ]);
+
+        // Check for duplicate menu_code manually
+        if (DB::connection('mysql_menu')->table('menus')->where('menu_code', $validated['menu_code'])->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Menu code already exists!');
+        }
 
         Menu::create($validated);
 
@@ -53,8 +61,8 @@ class MenuController extends Controller
     }
 
     /**
-         * Show the form for editing the specified resource.
-         */
+     * Show the form for editing the specified resource.
+     */
     public function edit(string $id)
     {
         $menu = Menu::findOrFail($id);
@@ -63,18 +71,25 @@ class MenuController extends Controller
     }
 
     /**
-         * Update the specified resource in storage.
-         */
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, string $id)
     {
         $menu = Menu::findOrFail($id);
 
         $validated = $request->validate([
-            'menu_code' => 'required|string|max:50|unique:menus,menu_code,' . $id,
+            'menu_code' => 'required|string|max:50',
             'name' => 'required|string|max:100',
             'price' => 'required|numeric',
             'description' => 'required|string'
         ]);
+
+        // Check for duplicate menu_code manually (excluding current record)
+        if (DB::connection('mysql_menu')->table('menus')->where('menu_code', $validated['menu_code'])->where('id', '!=', $id)->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Menu code already exists!');
+        }
 
         $menu->update($validated);
 

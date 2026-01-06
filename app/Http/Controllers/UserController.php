@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use DB;
 
 class UserController extends Controller
 {
@@ -31,9 +32,16 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'password' => 'required|string|min:6|confirmed',
         ]);
+
+        // Check for duplicate email manually
+        if (DB::connection('mysql')->table('users')->where('email', $validated['email'])->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Email already exists!');
+        }
 
         $validated['password'] = bcrypt($validated['password']);
 
@@ -66,17 +74,23 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
-        // dd($request->all());
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email'],
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
         ], [
             // CUSTOM MESSAGES DI SINI
             'name.required' => 'Nama tidak boleh kosong.',
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Email Harus mengandung "@".',
         ]);
+
+        // Check for duplicate email manually (excluding current user)
+        if (DB::connection('mysql')->table('users')->where('email', $request->email)->where('id', '!=', $id)->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Email already exists!');
+        }
 
         $user->update($request->all());
 

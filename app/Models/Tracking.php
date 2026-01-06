@@ -9,6 +9,8 @@ class Tracking extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql_tracking';
+
     protected $fillable = [
         'delivery_id',
         'latitude',

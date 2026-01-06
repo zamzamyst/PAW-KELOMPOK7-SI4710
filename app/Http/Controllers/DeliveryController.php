@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\DeliveryService;
+use DB;
 
 class DeliveryController extends Controller
 {
@@ -43,11 +44,32 @@ class DeliveryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'order_id' => 'required|exists:orders,id|unique:deliveries,order_id',
-            'delivery_service_id' => 'required|exists:delivery_services,id',
+            'order_id' => 'required|integer',
+            'delivery_service_id' => 'required|integer',
             'delivery_address' => 'required|string',
             'delivery_status' => 'required|in:pending,in_transit,delivered,cancelled',
         ]);
+
+        // Check if order exists in mysql_order
+        if (!DB::connection('mysql_order')->table('orders')->where('id', $validated['order_id'])->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'The selected order is invalid.');
+        }
+
+        // Check if delivery already exists for this order
+        if (DB::connection('mysql_delivery')->table('deliveries')->where('order_id', $validated['order_id'])->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'A delivery already exists for this order.');
+        }
+
+        // Check if delivery service exists in mysql_delivery
+        if (!DB::connection('mysql_delivery')->table('delivery_services')->where('id', $validated['delivery_service_id'])->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'The selected delivery service is invalid.');
+        }
 
         $delivery = Delivery::create($validated);
 

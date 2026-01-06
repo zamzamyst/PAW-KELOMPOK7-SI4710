@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order; 
 use App\Models\Menu; 
-use App\Models\Feedback;
+use DB;
 
 class OrderController extends Controller {
 
@@ -27,12 +27,18 @@ class OrderController extends Controller {
     public function store(Request $request)
     {
         $request->validate([
-            'menu_code' => 'required|exists:menus,menu_code',
+            'menu_code' => 'required|string',
             'quantity' => 'required|integer|min:1',
             'notes' => 'nullable|string',
         ]);
 
-        $menu = Menu::where('menu_code', $request->menu_code)->first();
+        // Check if menu exists in mysql_menu
+        $menu = DB::connection('mysql_menu')->table('menus')->where('menu_code', $request->menu_code)->first();
+        if (!$menu) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Menu tidak ditemukan!');
+        }
 
         $order = Order::create([
             'menu_code' => $menu->menu_code,
@@ -40,12 +46,6 @@ class OrderController extends Controller {
             'price' => $menu->price,
             'quantity' => $request->quantity,
             'notes' => $request->notes,
-        ]);
-
-        Feedback::create([
-            'order_id' => $order->id,
-            'rating' => null,
-            'comment' => null,
         ]);
         
         return redirect()->route('menu')->with('success', 'Menu berhasil dipesan!');

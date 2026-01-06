@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tracking;
 use App\Models\Delivery;
+use DB;
 
 class TrackingController extends Controller
 {
@@ -40,8 +41,22 @@ class TrackingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'delivery_id' => 'required|exists:deliveries,id|unique:trackings,delivery_id',
+            'delivery_id' => 'required|integer',
         ]);
+
+        // Check if delivery exists in mysql_delivery
+        if (!DB::connection('mysql_delivery')->table('deliveries')->where('id', $request->delivery_id)->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'The selected delivery is invalid.');
+        }
+
+        // Check if tracking already exists for this delivery
+        if (DB::connection('mysql_tracking')->table('trackings')->where('delivery_id', $request->delivery_id)->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'A tracking already exists for this delivery.');
+        }
 
         // Generate random coordinates within Indonesia
         $coordinates = Tracking::generateRandomCoordinates();
@@ -86,8 +101,22 @@ class TrackingController extends Controller
         if (!$tracking) {
             // If tracking doesn't exist, behave like create
             $request->validate([
-                'delivery_id' => 'required|exists:deliveries,id|unique:trackings,delivery_id',
+                'delivery_id' => 'required|integer',
             ]);
+
+            // Check if delivery exists in mysql_delivery
+            if (!DB::connection('mysql_delivery')->table('deliveries')->where('id', $request->delivery_id)->exists()) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'The selected delivery is invalid.');
+            }
+
+            // Check if tracking already exists for this delivery
+            if (DB::connection('mysql_tracking')->table('trackings')->where('delivery_id', $request->delivery_id)->exists()) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'A tracking already exists for this delivery.');
+            }
 
             $coordinates = Tracking::generateRandomCoordinates();
 

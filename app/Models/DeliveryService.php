@@ -9,6 +9,8 @@ class DeliveryService extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql_delivery';
+
     protected $table = 'delivery_services';
 
     protected $fillable = [

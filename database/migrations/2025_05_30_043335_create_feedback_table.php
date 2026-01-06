@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('feedbacks', function (Blueprint $table) {
+        Schema::connection('mysql_feedback')->create('feedbacks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id')->unique();
             $table->unsignedBigInteger('user_id')->nullable();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('feedbacks');
+        Schema::connection('mysql_feedback')->dropIfExists('feedbacks');
     }
 };

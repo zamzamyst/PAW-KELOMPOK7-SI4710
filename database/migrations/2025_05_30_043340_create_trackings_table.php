@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trackings', function (Blueprint $table) {
+        Schema::connection('mysql_tracking')->create('trackings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('delivery_id')->unique();
             $table->decimal('latitude', 10, 6);
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trackings');
+        Schema::connection('mysql_tracking')->dropIfExists('trackings');
     }
 };

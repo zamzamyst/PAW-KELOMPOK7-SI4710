@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('delivery_services', function (Blueprint $table) {
+        Schema::connection('mysql_delivery')->create('delivery_services', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->decimal('price', 12, 2);
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('delivery_services');
+        Schema::connection('mysql_delivery')->dropIfExists('delivery_services');
     }
 };
