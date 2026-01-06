@@ -41,6 +41,14 @@
                         </x-nav-link>
                     </div>
 
+                    @if (auth()->user()->hasRole('admin'))
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link :href="route('delivery-service')" :active="request()->routeIs('delivery-service*')">
+                                {{ __('Delivery Service') }}
+                            </x-nav-link>
+                        </div>
+                    @endif
+
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('tracking')" :active="request()->routeIs('tracking*')">
                             {{ __('Tracking') }}
@@ -133,6 +141,12 @@
                 <x-responsive-nav-link :href="route('delivery')" :active="request()->routeIs('delivery*')">
                     {{ __('Delivery') }}
                 </x-responsive-nav-link>
+
+                @if (auth()->user()->hasRole('admin'))
+                    <x-responsive-nav-link :href="route('delivery-service')" :active="request()->routeIs('delivery-service*')">
+                        {{ __('Delivery Service') }}
+                    </x-responsive-nav-link>
+                @endif
 
                 <x-responsive-nav-link :href="route('tracking')" :active="request()->routeIs('tracking*')">
                     {{ __('Tracking') }}

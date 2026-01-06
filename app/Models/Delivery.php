@@ -11,6 +11,7 @@ class Delivery extends Model
 
     protected $fillable = [
         'order_id',
+        'delivery_service_id',
         'delivery_address',
         'delivery_status',
     ];
@@ -18,6 +19,11 @@ class Delivery extends Model
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function deliveryService()
+    {
+        return $this->belongsTo(DeliveryService::class);
     }
 
     public function tracking()

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\DeliveryServiceController;
 use App\Http\Controllers\TrackingController;
 
 use Illuminate\Support\Facades\Route;
@@ -65,6 +66,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', 'edit')->name('delivery.edit');
         Route::put('/edit/{id}', 'update')->name('delivery.update');
         Route::delete('/destroy/{id}', 'destroy')->name('delivery.destroy');
+    });
+
+    /*  Routes untuk Fitur Delivery Service (Provider)  */
+    Route::controller(DeliveryServiceController::class)
+    ->prefix('delivery-service')
+    ->middleware(['auth', 'verified'])
+    ->group(function () {
+        Route::get('', 'index')->name('delivery-service');
+        Route::get('create', 'create')->name('delivery-service.create');
+        Route::post('store', 'store')->name('delivery-service.store');
+        Route::get('show/{id}', 'show')->name('delivery-service.show');
+        Route::get('edit/{id}', 'edit')->name('delivery-service.edit');
+        Route::put('edit/{id}', 'update')->name('delivery-service.update');
+        Route::delete('destroy/{id}', 'destroy')->name('delivery-service.destroy');
     });
 
     /*  Routes untuk Fitur Tracking  */

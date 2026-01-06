@@ -45,6 +45,9 @@ class RolePermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'update-tracking']);
         Permission::firstOrCreate(['name' => 'delete-tracking']);
 
+        /** Delivery Services Permissions (Provider Module) **/
+        Permission::firstOrCreate(['name' => 'manage_delivery_services']);
+
         /** LIST ROLE **/
         Role::create(['name'=>'admin']);
         Role::create(['name'=>'seller']);
@@ -81,6 +84,8 @@ class RolePermissionSeeder extends Seeder
         $roleAdmin->givePermissionTo('read-tracking');
         $roleAdmin->givePermissionTo('update-tracking');
         $roleAdmin->givePermissionTo('delete-tracking');
+
+        $roleAdmin->givePermissionTo('manage_delivery_services');
 
         /** PERMISSION FOR SELLER **/
         $roleSeller = Role::findByName('seller');

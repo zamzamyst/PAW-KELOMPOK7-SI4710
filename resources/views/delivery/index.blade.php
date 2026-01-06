@@ -34,6 +34,7 @@
                             <th class="px-4 py-2">No.</th>
                             <th class="px-4 py-2">Order ID</th>
                             <th class="px-4 py-2">Menu Name</th>
+                            <th class="px-4 py-2">Service Name</th>
                             <th class="px-4 py-2">Delivery Address</th>
                             <th class="px-4 py-2">Status</th>
                             <th class="px-4 py-2">Action</th>
@@ -46,9 +47,10 @@
                             <td class="px-4 py-2 align-middle">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 align-middle">{{ $rs->order_id }}</td>
                             <td class="px-4 py-2 align-middle">{{ $rs->order->name ?? '-' }}</td>
+                            <td class="px-4 py-2 align-middle">{{ $rs->deliveryService->name ?? '-' }}</td>
                             <td class="px-4 py-2 align-middle">{{ Str::limit($rs->delivery_address, 30) }}</td>
                             <td class="px-4 py-2 align-middle">
-                                <span class="px-2 py-1 rounded text-white text-xs {{ $rs->status_badge }}">
+                                <span class="px-2 py-1 rounded text-black font-semibold text-xs {{ $rs->status_badge }}">
                                     {{ $rs->formatted_status }}
                                 </span>
                             </td>

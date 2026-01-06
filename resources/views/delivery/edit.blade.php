@@ -35,6 +35,22 @@
                     </div>
 
                     <div class="mb-4">
+                        <label for="delivery_service_id" class="block text-gray-700 font-semibold mb-2">Service Name</label>
+                        <select name="delivery_service_id" id="delivery_service_id" required
+                            class="w-full border border-gray-300 rounded px-3 py-2">
+                            <option value="">-- Select Delivery Service --</option>
+                            @foreach($services as $service)
+                                <option value="{{ $service->id }}" {{ old('delivery_service_id', $delivery->delivery_service_id) == $service->id ? 'selected' : '' }}>
+                                    {{ $service->name }} (Rp{{ number_format($service->price, 0, ',', '.') }} - {{ $service->estimation_days }} hari)
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('delivery_service_id')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mb-4">
                         <label for="delivery_status" class="block text-gray-700 font-semibold mb-2">Delivery Status</label>
                         <select name="delivery_status" id="delivery_status" required
                             class="w-full border border-gray-300 rounded px-3 py-2">

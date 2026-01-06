@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\Order;
+use App\Models\DeliveryService;
 
 class DeliveryController extends Controller
 {
@@ -13,7 +14,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $deliveries = Delivery::with('order')->orderBy('created_at', 'DESC')->get();
+        $deliveries = Delivery::with(['order', 'deliveryService'])->orderBy('created_at', 'DESC')->get();
 
         return view('delivery.index', compact('deliveries'));
     }
@@ -31,7 +32,9 @@ class DeliveryController extends Controller
                 ->with('info', 'Delivery sudah ada untuk order ini.');
         }
 
-        return view('delivery.create', compact('order'));
+        $services = DeliveryService::active()->get();
+
+        return view('delivery.create', compact('order', 'services'));
     }
 
     /**
@@ -41,6 +44,7 @@ class DeliveryController extends Controller
     {
         $validated = $request->validate([
             'order_id' => 'required|exists:orders,id|unique:deliveries,order_id',
+            'delivery_service_id' => 'required|exists:delivery_services,id',
             'delivery_address' => 'required|string',
             'delivery_status' => 'required|in:pending,in_transit,delivered,cancelled',
         ]);
@@ -55,7 +59,7 @@ class DeliveryController extends Controller
      */
     public function show(string $id)
     {
-        $delivery = Delivery::with(['order', 'tracking'])->findOrFail($id);
+        $delivery = Delivery::with(['order', 'tracking', 'deliveryService'])->findOrFail($id);
 
         return view('delivery.show', compact('delivery'));
     }
@@ -66,8 +70,9 @@ class DeliveryController extends Controller
     public function edit(string $id)
     {
         $delivery = Delivery::with('order')->findOrFail($id);
+        $services = DeliveryService::active()->get();
 
-        return view('delivery.edit', compact('delivery'));
+        return view('delivery.edit', compact('delivery', 'services'));
     }
 
     /**
@@ -78,6 +83,7 @@ class DeliveryController extends Controller
         $delivery = Delivery::findOrFail($id);
 
         $validated = $request->validate([
+            'delivery_service_id' => 'required|exists:delivery_services,id',
             'delivery_address' => 'required|string',
             'delivery_status' => 'required|in:pending,in_transit,delivered,cancelled',
         ]);

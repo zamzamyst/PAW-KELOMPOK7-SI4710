@@ -47,6 +47,25 @@
                     </div>
                 </div>
 
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Service Name</label>
+                        <input type="text" class="form-input w-full" value="{{ $delivery->deliveryService->name ?? '-' }}" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Service Price</label>
+                        <input type="text" class="form-input w-full" 
+                            value="Rp{{ number_format($delivery->deliveryService->price ?? 0, 0, ',', '.') }}" readonly>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Estimation Days</label>
+                        <input type="text" class="form-input w-full" value="{{ $delivery->deliveryService->estimation_days ?? '-' }} hari" readonly>
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2">Created At</label>

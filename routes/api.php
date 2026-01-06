@@ -6,8 +6,30 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\DeliveryController;
 use App\Http\Controllers\Api\FeedbackController;
 use App\Http\Controllers\Api\TrackingController;
+use App\Http\Controllers\Api\V1\DeliveryServiceController;
 use Illuminate\Support\Facades\Route;
 
+
+/**
+ * VERSIONED API ROUTES
+ * Using /api/v1 prefix for all new endpoints
+ */
+Route::middleware('api')
+    ->prefix('api/v1')
+    ->group(function () {
+        /* Delivery Services API - Provider Module */
+        Route::get('/delivery-services', [DeliveryServiceController::class, 'index']);
+        Route::get('/delivery-services/{id}', [DeliveryServiceController::class, 'show']);
+        Route::post('/delivery-services', [DeliveryServiceController::class, 'store']);
+        Route::put('/delivery-services/{id}', [DeliveryServiceController::class, 'update']);
+        Route::delete('/delivery-services/{id}', [DeliveryServiceController::class, 'destroy']);
+    });
+
+
+/**
+ * LEGACY API ROUTES (v0)
+ * Kept for backward compatibility
+ */
 
 /*  Routes API untuk Fitur Menu  */
 Route::middleware('api')
@@ -27,7 +49,7 @@ Route::middleware('api')
     });
 
 
-/*  Routes API untuk Fitur Delivery  */
+/*  Routes API untuk Fitur Delivery (Legacy)  */
 Route::middleware('api')
     ->prefix('api')
     ->group(function () {
