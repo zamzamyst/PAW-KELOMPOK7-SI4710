@@ -18,7 +18,8 @@ return new class extends Migration
             $table->enum('delivery_status', ['pending', 'in_transit', 'delivered', 'cancelled'])->default('pending');
             $table->timestamps();
 
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            // Foreign key constraint removed - orders table is in a separate database
+            // Reference is maintained via order_id without DB constraint
         });
     }
 

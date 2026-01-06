@@ -11,7 +11,64 @@ Proyek ini dirancang untuk memenuhi tugas besar mata kuliah Pengembangan Aplikas
 
 ### Installation
 
-Berikut merupakan tahap instalasi yang harus dilakukan untuk menjalankan proyek ini, jalankan sintaks berikut menggunakan Terminal di perangkat anda.
+Berikut merupakan tahap instalasi yang harus dilakukan untuk menjalankan proyek ini. Terdapat 2 metode: menggunakan Docker (recommended) atau Laragon.
+
+#### **Metode 1: Menggunakan Docker (Recommended)**
+
+Docker menyediakan lingkungan yang konsisten di semua mesin, tanpa perlu instalasi database terpisah.
+
+**Prasyarat:** Pastikan [Docker Desktop](https://www.docker.com/products/docker-desktop) sudah terinstall.
+
+1. Clone the repository
+   ```sh
+   git clone https://github.com/zamzamyst/PAW-KELOMPOK7-SI4710.git
+   cd PAW-KELOMPOK7-SI4710
+   ```
+
+2. Install dependencies
+   ```sh
+   composer install
+   npm install
+   npm run build
+   ```
+
+3. Setup environment file
+   ```sh
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. Start Docker containers (includes Laravel app, MySQL, and PhpMyAdmin)
+   ```sh
+   docker-compose up -d
+   ```
+
+5. Run database migrations
+   ```sh
+   docker-compose exec app php artisan migrate
+   ```
+
+6. Seed database dengan test data
+   ```sh
+   docker-compose exec app php artisan db:seed --class=RolePermissionSeeder
+   docker-compose exec app php artisan db:seed --class=UserSeeder
+   docker-compose exec app php artisan db:seed --class=MenuSeeder
+   docker-compose exec app php artisan db:seed --class=DeliveryServiceSeeder
+   ```
+
+7. Access the application
+   - **Laravel App:** http://localhost:8000
+   - **GraphQL Playground:** http://localhost:8000/graphql-playground.html
+   - **PhpMyAdmin:** http://localhost:8081 (Username: `tmart_user` / Password: `tmart_password`)
+
+**To stop the project:**
+```sh
+docker-compose down
+```
+
+#### **Metode 2: Menggunakan Laragon (Local Development)**
+
+Jika lebih suka menggunakan Laragon, gunakan langkah-langkah berikut:
 
 1. Clone the repository
    ```sh
@@ -33,34 +90,39 @@ Berikut merupakan tahap instalasi yang harus dilakukan untuk menjalankan proyek 
    ```sh
    npm run build
    ```
-5. Copy the `.env.example` file to `.env`
+6. Copy the `.env.example` file to `.env`
    ```sh
-    cp .env.example .env
-    ```
-6. Setup your database configuration in `.env`
-7. Run database migrations
-    ```sh
-    php artisan migrate
-    ```
-8. Generate application encryption key
-    ```sh
-    php artisan key:generate
-    ```
-9. Seed roles and permission
+   cp .env.example .env
+   ```
+7. Setup your database configuration in `.env` sesuai konfigurasi Laragon
+8. Run database migrations
+   ```sh
+   php artisan migrate
+   ```
+9. Generate application encryption key (jika belum)
+   ```sh
+   php artisan key:generate
+   ```
+10. Seed roles and permission
     ```sh
     php artisan db:seed --class=RolePermissionSeeder
     ```
-10. Seed all user
+11. Seed all user
     ```sh
     php artisan db:seed --class=UserSeeder
     ```
-11. Seed template menu
+12. Seed template menu
     ```sh
     php artisan db:seed --class=MenuSeeder
     ```
-12. Start laravel project
+13. Seed delivery service
+    ```sh
+    php artisan db:seed --class=DeliveryServiceSeeder
+    ```
+14. Start laravel project
     ```sh
     php artisan serve
+    ```
 
 ### Cara Penggunaan
 

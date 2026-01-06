@@ -1,5 +1,8 @@
 -- Create all required databases for tmart microservices architecture
 
+-- Create database user
+CREATE USER IF NOT EXISTS 'tmart_user'@'%' IDENTIFIED BY 'tmart_password';
+
 -- Create tmart-users database
 CREATE DATABASE IF NOT EXISTS `tmart-users` 
 CHARACTER SET utf8mb4 

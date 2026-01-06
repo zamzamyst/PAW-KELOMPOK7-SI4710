@@ -18,7 +18,8 @@ return new class extends Migration
             $table->decimal('longitude', 10, 6);
             $table->timestamps();
 
-            $table->foreign('delivery_id')->references('id')->on('deliveries')->onDelete('cascade');
+            // Foreign key constraint removed - deliveries table is in a separate database
+            // Reference is maintained via delivery_id without DB constraint
         });
     }
 

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('comment')->nullable();
             $table->timestamps();
 
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // Foreign key constraints removed - orders and users tables are in separate databases
+            // References are maintained via order_id and user_id without DB constraints
         });
     }
 
