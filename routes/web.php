@@ -12,6 +12,11 @@ use App\Http\Controllers\TrackingController;
 use Illuminate\Support\Facades\Route;
 
 
+/* GraphQL Playground Route */
+Route::get('/graphql-playground', function () {
+    return file_get_contents(public_path('graphql-playground.html'));
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
