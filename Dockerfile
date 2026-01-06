@@ -9,7 +9,6 @@ RUN apt-get update --fix-missing && apt-get upgrade -y && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    mysql-client \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
     && a2enmod rewrite \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
